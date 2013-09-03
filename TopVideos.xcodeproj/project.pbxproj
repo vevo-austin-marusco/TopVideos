@@ -203,6 +203,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = Vevo;
 				TargetAttributes = {
+					5987946017D66F1200101BE8 = {
+						DevelopmentTeam = ESY4QQL8EL;
+					};
 					5987948417D66F1200101BE8 = {
 						TestTargetID = 5987946017D66F1200101BE8;
 					};
@@ -389,6 +392,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Austin Marusco (HYV58B5XQE)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TopVideos/TopVideos-Prefix.pch";
 				INFOPLIST_FILE = "TopVideos/TopVideos-Info.plist";
@@ -402,6 +406,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Austin Marusco (HYV58B5XQE)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TopVideos/TopVideos-Prefix.pch";
 				INFOPLIST_FILE = "TopVideos/TopVideos-Info.plist";
