@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VMViewController : UIViewController
+@interface VMViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>{
+    NSMutableDictionary *topVideos;
+}
+
+@property (nonatomic,retain) UITableView *tableView;
 
 @end

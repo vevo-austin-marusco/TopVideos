@@ -7,6 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		594B192B17D696930055C5DE /* VevoSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 594B192A17D696930055C5DE /* VevoSDK.framework */; };
+		594B193017D697690055C5DE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 594B192F17D697680055C5DE /* AVFoundation.framework */; };
+		594B193217D697750055C5DE /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 594B193117D697750055C5DE /* MediaPlayer.framework */; };
+		594B193417D697B00055C5DE /* AdManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 594B193317D697B00055C5DE /* AdManager.framework */; };
+		594B193617D697C30055C5DE /* StreamSense.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 594B193517D697C30055C5DE /* StreamSense.framework */; };
+		594B193817D697DB0055C5DE /* comScore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 594B193717D697DB0055C5DE /* comScore.framework */; };
+		594B193A17D697EF0055C5DE /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 594B193917D697EF0055C5DE /* SDWebImage.framework */; };
+		594B193C17D6982A0055C5DE /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 594B193B17D6982A0055C5DE /* ImageIO.framework */; };
+		594B193E17D6984A0055C5DE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 594B193D17D6984A0055C5DE /* CoreLocation.framework */; };
+		594B194017D698570055C5DE /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 594B193F17D698570055C5DE /* MessageUI.framework */; };
+		594B194217D6985E0055C5DE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 594B194117D6985E0055C5DE /* Security.framework */; };
+		594B194417D6986B0055C5DE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 594B194317D6986A0055C5DE /* SystemConfiguration.framework */; };
+		594B194617D698B40055C5DE /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 594B194517D698B40055C5DE /* libxml2.dylib */; };
+		594B194817D699590055C5DE /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 594B194717D699590055C5DE /* EventKit.framework */; };
+		594B194A17D699950055C5DE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 594B194917D699950055C5DE /* QuartzCore.framework */; };
+		594B194C17D699FF0055C5DE /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 594B194B17D699FF0055C5DE /* CoreMedia.framework */; };
+		594B194E17D69A840055C5DE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 594B194D17D69A840055C5DE /* Default-568h@2x.png */; };
 		5987946517D66F1200101BE8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5987946417D66F1200101BE8 /* Foundation.framework */; };
 		5987946717D66F1200101BE8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5987946617D66F1200101BE8 /* CoreGraphics.framework */; };
 		5987946917D66F1200101BE8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5987946817D66F1200101BE8 /* UIKit.framework */; };
@@ -22,6 +39,8 @@
 		5987948917D66F1200101BE8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5987946817D66F1200101BE8 /* UIKit.framework */; };
 		5987949117D66F1200101BE8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5987948F17D66F1200101BE8 /* InfoPlist.strings */; };
 		5987949317D66F1200101BE8 /* TopVideosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5987949217D66F1200101BE8 /* TopVideosTests.m */; };
+		5987976217D6837200101BE8 /* VevoSDKResources.bundle in Frameworks */ = {isa = PBXBuildFile; fileRef = 5987975A17D6820000101BE8 /* VevoSDKResources.bundle */; };
+		59B1342017D6AA7F006051B9 /* VMTopVideosTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 59B1341F17D6AA7E006051B9 /* VMTopVideosTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,9 +51,40 @@
 			remoteGlobalIDString = 5987946017D66F1200101BE8;
 			remoteInfo = TopVideos;
 		};
+		5997163E17D68DEE006C0AE4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5997163817D68DEE006C0AE4 /* vevo-ios-sdk.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6109FCEC1714B085005913F1;
+			remoteInfo = "vevo-ios-sdk";
+		};
+		5997164017D68DEE006C0AE4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5997163817D68DEE006C0AE4 /* vevo-ios-sdk.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6109FCFD1714B085005913F1;
+			remoteInfo = "vevo-ios-sdkTests";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		594B192A17D696930055C5DE /* VevoSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VevoSDK.framework; sourceTree = "<group>"; };
+		594B192F17D697680055C5DE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		594B193117D697750055C5DE /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		594B193317D697B00055C5DE /* AdManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdManager.framework; sourceTree = "<group>"; };
+		594B193517D697C30055C5DE /* StreamSense.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = StreamSense.framework; sourceTree = "<group>"; };
+		594B193717D697DB0055C5DE /* comScore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = comScore.framework; sourceTree = "<group>"; };
+		594B193917D697EF0055C5DE /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = "<group>"; };
+		594B193B17D6982A0055C5DE /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		594B193D17D6984A0055C5DE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		594B193F17D698570055C5DE /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		594B194117D6985E0055C5DE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		594B194317D6986A0055C5DE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		594B194517D698B40055C5DE /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		594B194717D699590055C5DE /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		594B194917D699950055C5DE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		594B194B17D699FF0055C5DE /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		594B194D17D69A840055C5DE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		5987946117D66F1200101BE8 /* TopVideos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TopVideos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5987946417D66F1200101BE8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5987946617D66F1200101BE8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -55,6 +105,11 @@
 		5987948E17D66F1200101BE8 /* TopVideosTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TopVideosTests-Info.plist"; sourceTree = "<group>"; };
 		5987949017D66F1200101BE8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5987949217D66F1200101BE8 /* TopVideosTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopVideosTests.m; sourceTree = "<group>"; };
+		5987975A17D6820000101BE8 /* VevoSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = VevoSDKResources.bundle; path = "TopVideos/3rd_party/vevo-ios-sdk/VevoSDKResources.bundle"; sourceTree = "<group>"; };
+		5997163817D68DEE006C0AE4 /* vevo-ios-sdk.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "vevo-ios-sdk.xcodeproj"; path = "../../../Downloads/iOS_SDK-master/VML/vevo-ios-sdk/vevo-ios-sdk.xcodeproj"; sourceTree = "<group>"; };
+		59B1341D17D6A7BD006051B9 /* VMConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMConstants.h; sourceTree = "<group>"; };
+		59B1341E17D6AA7E006051B9 /* VMTopVideosTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMTopVideosTableViewCell.h; sourceTree = "<group>"; };
+		59B1341F17D6AA7E006051B9 /* VMTopVideosTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMTopVideosTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,9 +117,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				594B194C17D699FF0055C5DE /* CoreMedia.framework in Frameworks */,
+				594B193017D697690055C5DE /* AVFoundation.framework in Frameworks */,
+				594B194A17D699950055C5DE /* QuartzCore.framework in Frameworks */,
+				594B194817D699590055C5DE /* EventKit.framework in Frameworks */,
+				594B194617D698B40055C5DE /* libxml2.dylib in Frameworks */,
+				594B194417D6986B0055C5DE /* SystemConfiguration.framework in Frameworks */,
+				594B194217D6985E0055C5DE /* Security.framework in Frameworks */,
+				594B194017D698570055C5DE /* MessageUI.framework in Frameworks */,
+				594B193E17D6984A0055C5DE /* CoreLocation.framework in Frameworks */,
+				594B193C17D6982A0055C5DE /* ImageIO.framework in Frameworks */,
+				594B193217D697750055C5DE /* MediaPlayer.framework in Frameworks */,
+				5987976217D6837200101BE8 /* VevoSDKResources.bundle in Frameworks */,
 				5987946717D66F1200101BE8 /* CoreGraphics.framework in Frameworks */,
 				5987946917D66F1200101BE8 /* UIKit.framework in Frameworks */,
 				5987946517D66F1200101BE8 /* Foundation.framework in Frameworks */,
+				594B192B17D696930055C5DE /* VevoSDK.framework in Frameworks */,
+				594B193417D697B00055C5DE /* AdManager.framework in Frameworks */,
+				594B193617D697C30055C5DE /* StreamSense.framework in Frameworks */,
+				594B193817D697DB0055C5DE /* comScore.framework in Frameworks */,
+				594B193A17D697EF0055C5DE /* SDWebImage.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +156,7 @@
 		5987945817D66F1200101BE8 = {
 			isa = PBXGroup;
 			children = (
+				594B194D17D69A840055C5DE /* Default-568h@2x.png */,
 				5987946A17D66F1200101BE8 /* TopVideos */,
 				5987948C17D66F1200101BE8 /* TopVideosTests */,
 				5987946317D66F1200101BE8 /* Frameworks */,
@@ -103,6 +176,23 @@
 		5987946317D66F1200101BE8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				594B194517D698B40055C5DE /* libxml2.dylib */,
+				5987975A17D6820000101BE8 /* VevoSDKResources.bundle */,
+				594B194B17D699FF0055C5DE /* CoreMedia.framework */,
+				594B194917D699950055C5DE /* QuartzCore.framework */,
+				594B194717D699590055C5DE /* EventKit.framework */,
+				594B194317D6986A0055C5DE /* SystemConfiguration.framework */,
+				594B194117D6985E0055C5DE /* Security.framework */,
+				594B193F17D698570055C5DE /* MessageUI.framework */,
+				594B193D17D6984A0055C5DE /* CoreLocation.framework */,
+				594B193B17D6982A0055C5DE /* ImageIO.framework */,
+				594B193117D697750055C5DE /* MediaPlayer.framework */,
+				594B192F17D697680055C5DE /* AVFoundation.framework */,
+				594B193917D697EF0055C5DE /* SDWebImage.framework */,
+				594B193717D697DB0055C5DE /* comScore.framework */,
+				594B193517D697C30055C5DE /* StreamSense.framework */,
+				594B193317D697B00055C5DE /* AdManager.framework */,
+				594B192A17D696930055C5DE /* VevoSDK.framework */,
 				5987946417D66F1200101BE8 /* Foundation.framework */,
 				5987946617D66F1200101BE8 /* CoreGraphics.framework */,
 				5987946817D66F1200101BE8 /* UIKit.framework */,
@@ -114,12 +204,15 @@
 		5987946A17D66F1200101BE8 /* TopVideos */ = {
 			isa = PBXGroup;
 			children = (
+				59B1342117D6B2CE006051B9 /* Views */,
+				598797D217D685D200101BE8 /* 3rd_party */,
 				5987947317D66F1200101BE8 /* VMAppDelegate.h */,
 				5987947417D66F1200101BE8 /* VMAppDelegate.m */,
 				5987947617D66F1200101BE8 /* Main_iPhone.storyboard */,
 				5987947917D66F1200101BE8 /* Main_iPad.storyboard */,
 				5987947C17D66F1200101BE8 /* VMViewController.h */,
 				5987947D17D66F1200101BE8 /* VMViewController.m */,
+				59B1341D17D6A7BD006051B9 /* VMConstants.h */,
 				5987947F17D66F1200101BE8 /* Images.xcassets */,
 				5987946B17D66F1200101BE8 /* Supporting Files */,
 			);
@@ -153,6 +246,32 @@
 				5987948F17D66F1200101BE8 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		598797D217D685D200101BE8 /* 3rd_party */ = {
+			isa = PBXGroup;
+			children = (
+				5997163817D68DEE006C0AE4 /* vevo-ios-sdk.xcodeproj */,
+			);
+			name = 3rd_party;
+			sourceTree = "<group>";
+		};
+		5997163917D68DEE006C0AE4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5997163F17D68DEE006C0AE4 /* libvevo-ios-sdk.a */,
+				5997164117D68DEE006C0AE4 /* vevo-ios-sdkTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		59B1342117D6B2CE006051B9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				59B1341E17D6AA7E006051B9 /* VMTopVideosTableViewCell.h */,
+				59B1341F17D6AA7E006051B9 /* VMTopVideosTableViewCell.m */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,6 +341,12 @@
 			mainGroup = 5987945817D66F1200101BE8;
 			productRefGroup = 5987946217D66F1200101BE8 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 5997163917D68DEE006C0AE4 /* Products */;
+					ProjectRef = 5997163817D68DEE006C0AE4 /* vevo-ios-sdk.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				5987946017D66F1200101BE8 /* TopVideos */,
@@ -229,6 +354,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		5997163F17D68DEE006C0AE4 /* libvevo-ios-sdk.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libvevo-ios-sdk.a";
+			remoteRef = 5997163E17D68DEE006C0AE4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5997164117D68DEE006C0AE4 /* vevo-ios-sdkTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "vevo-ios-sdkTests.octest";
+			remoteRef = 5997164017D68DEE006C0AE4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		5987945F17D66F1200101BE8 /* Resources */ = {
@@ -239,6 +381,7 @@
 				5987948017D66F1200101BE8 /* Images.xcassets in Resources */,
 				5987947817D66F1200101BE8 /* Main_iPhone.storyboard in Resources */,
 				5987946F17D66F1200101BE8 /* InfoPlist.strings in Resources */,
+				594B194E17D69A840055C5DE /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +400,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59B1342017D6AA7F006051B9 /* VMTopVideosTableViewCell.m in Sources */,
 				5987947117D66F1200101BE8 /* main.m in Sources */,
 				5987947E17D66F1200101BE8 /* VMViewController.m in Sources */,
 				5987947517D66F1200101BE8 /* VMAppDelegate.m in Sources */,
@@ -348,7 +492,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -380,7 +524,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -393,9 +537,19 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Austin Marusco (HYV58B5XQE)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/newadminuser/Documents/TopVideos/TopVideos/vevo-ios-sdk/3rdParty/AdManager/5.6.0",
+					"/Users/newadminuser/Documents/TopVideos/TopVideos/vevo-ios-sdk/3rdParty/BlocksKit/Framework",
+					"/Users/newadminuser/Documents/TopVideos/TopVideos/vevo-ios-sdk/3rdParty",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TopVideos/TopVideos-Prefix.pch";
 				INFOPLIST_FILE = "TopVideos/TopVideos-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -407,9 +561,19 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Austin Marusco (HYV58B5XQE)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/newadminuser/Documents/TopVideos/TopVideos/vevo-ios-sdk/3rdParty/AdManager/5.6.0",
+					"/Users/newadminuser/Documents/TopVideos/TopVideos/vevo-ios-sdk/3rdParty/BlocksKit/Framework",
+					"/Users/newadminuser/Documents/TopVideos/TopVideos/vevo-ios-sdk/3rdParty",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TopVideos/TopVideos-Prefix.pch";
 				INFOPLIST_FILE = "TopVideos/TopVideos-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -474,6 +638,7 @@
 				5987949817D66F1200101BE8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5987949917D66F1200101BE8 /* Build configuration list for PBXNativeTarget "TopVideosTests" */ = {
 			isa = XCConfigurationList;
@@ -482,6 +647,7 @@
 				5987949B17D66F1200101BE8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -1,0 +1,39 @@
+//
+//  Created by Harry Xu on 4/11/13.
+//  Copyright (c) 2013 Vevo. All rights reserved.
+//
+
+/* VevoMoviePlayer */
+
+"VM:Premiere" = "ESTRENO";
+"VM:Live" = "EN VIVO";
+
+"VM:video_connecting" = "Connecting";
+"VM:video_upcoming" = "Upcoming Videos";
+
+"VM:previous_video" = "PREVIOUS VIDEO";
+"VM:next_video" = "NEXT VIDEO";
+
+/************* Video player *************/
+"VM:Video_DoneButton" = "Done";
+"VM:Video_Info_PrimaryArtists" = "Primary Artists";
+"VM:Video_Info_FeaturedArtists" = "Featured Artists";
+"VM:live_label" = "LIVE";
+"VM:premiere_label" = "PREMIERE";
+"VM:video_will_begin_in_1" = "Your video will begin in 1 second.";
+"VM:video_will_begin" = "Your video will begin in %d seconds.";
+"VM:video_will_begin_now" = "Your video will begin now.";
+"VM:extend_button_camera_angle" = "CAMERA ANGLES";
+"VM:extend_button_playlist" = "PLAYLIST";
+"VM:camera_tab_title" = "Camera Angles";
+"VM:camera_number" = "Camera %d";
+"VM:video_player_button_info" = "Info";
+"VM:video_player_button_share" = "Share";
+"VM:video_player_button_buy" = "Buy";
+"VM:video_player_button_add" = "Add to Playlist";
+"VM:video_show_x_more" = "Show %d More Videos";
+"VM:video_show_x_of_y" = "(Showing %d of %d available)";
+"VM:tv_connected" = "TV Connected";
+"VM:play_on_tv" = "This video is playing on the TV.";
+"VM:air_play_screen_text" = "Select VIDEO from iPhone to Play.";
+"VM:video_explicit" = "EXPLICIT";
