@@ -18,12 +18,24 @@ enum {
     kTagFacebookButton
 };
 
+@interface TVVideoInfoOverlayView ()
+{
+    
+}
+@property (nonatomic, readwrite) BOOL transitioning;
+
+@end
+
+
 @implementation TVVideoInfoOverlayView
+
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
+        
+        self.transitioning = NO;
         
         self.backgroundColor = [UIColor colorWithWhite:0.5 alpha:.7];
         // Initialization code
@@ -134,23 +146,35 @@ enum {
 
 - (void)transitionOut{
     
+    if (!self.transitioning) {
+        self.transitioning = YES;
+    
     [UIView animateWithDuration:.8 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         
         self.frame = CGRectMake(-280, 0, 280, 460);
         
     } completion:^(BOOL f0){
+        self.transitioning = NO;
         self.isOnScreen = NO;
     }];
+        
+    }
     
 }
 - (void)transitionIn
 {
-    [UIView animateWithDuration:.8 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        self.frame = CGRectMake(0, 0, 280, 460);
-    } completion:^(BOOL f0){
-        self.isOnScreen = YES;
-        [self performSelector:@selector(transitionOut) withObject:nil afterDelay:[self fadeOutSeconds]];
-    }];
+    if (!self.transitioning) {
+            self.transitioning = YES;
+        
+        [UIView animateWithDuration:.8 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            self.frame = CGRectMake(0, 0, 280, 460);
+        } completion:^(BOOL f0){
+            self.transitioning = NO;
+            self.isOnScreen = YES;
+            [self performSelector:@selector(transitionOut) withObject:nil afterDelay:[self fadeOutSeconds]];
+        }];
+        
+    }
     
 }
 

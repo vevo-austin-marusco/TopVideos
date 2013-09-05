@@ -12,6 +12,7 @@
 #import <VevoSDK/VMPlayerOverlayObject.h>
 #import "TVPlayerTopBarView.h"
 #import "TVVideoInfoOverlayView.h"
+#import "TVAVMoviePlayerControlView.h"
 
 enum {
     kTagVideosTableCellImageView = 2000,
@@ -58,7 +59,7 @@ enum {
     [self setupPlayerContainerView];
     
     self.vodPlayer = [[VMMoviePlayerController alloc] initWithBaseView:self.playerContainerView];
-    self.vodPlayer.controlStyle = VMMovieControlStyleFullscreen;
+    self.vodPlayer.controlStyle = VMMovieControlStyleNone;
     self.vodPlayer.containerDelegate = self;
     //_vodPlayer.disableContinuousPlay = YES;
     
@@ -132,9 +133,15 @@ enum {
 
 - (void) movieplayerReadyToPlayVideo
 {
-    TVPlayerTopBarView *topBar = [[TVPlayerTopBarView alloc] initWithFrame:CGRectMake(0, 0, self.playerContainerView.bounds.size.width, 40)];
+    TVPlayerTopBarView *topBar = [[TVPlayerTopBarView alloc] initWithFrame:CGRectMake(0, 0, self.playerContainerView.bounds.size.width, 40) Container:self];
+    TVAVMoviePlayerControlView *moviePlayerControlView = [[TVAVMoviePlayerControlView alloc] initWithFrame:self.playerContainerView.bounds];
+    
+    moviePlayerControlView.player = self.vodPlayer;
     topBar.video = self.video;
+    
+    [self.vodPlayer showOverlay:moviePlayerControlView];
     [self.vodPlayer showOverlay:topBar];
+    
 }
 
 - (void) moviePlayerEnterFullScreen
@@ -148,11 +155,11 @@ enum {
 
 - (void) moviePlayerStartPlayingAds{
     //Freeze recommendation table when playing ads
-    [self.delegateObject performSelector:@selector(startedPlayingAds) withObject:nil];
+    //[self.delegateObject performSelector:@selector(startedPlayingAds) withObject:nil];
 }
 - (void) moviePlayerEndPlayingAds{
     //Re-enable recommendation table after playing ads
-    [self.delegateObject performSelector:@selector(stoppedPlayingAds) withObject:nil];
+    //[self.delegateObject performSelector:@selector(stoppedPlayingAds) withObject:nil];
 }
 
 
