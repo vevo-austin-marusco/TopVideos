@@ -99,12 +99,12 @@
         
         
         playButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        UIImage *playButtonImage = [UIImage imageNamed:@"VevoSDKResources.bundle/VMMoviePlayer/images/player_pause_icon.png"];
+        UIImage *playButtonImage = [UIImage imageNamed:@"player_pause_icon.png"];
         [playButton setImage:playButtonImage forState:UIControlStateNormal];
         [bottomControlBar addSubview:playButton];
         [playButton addTarget:self action:@selector(togglePlayPause:) forControlEvents:UIControlEventTouchUpInside];
         
-        UIImage *timeBackground = [UIImage imageNamed:@"VevoSDKResources.bundle/VMMoviePlayer/images/playercontrol_time_bg.png"];
+        UIImage *timeBackground = [UIImage imageNamed:@"playercontrol_time_bg.png"];
         self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(bottomControlBar.frame.size.width - timeBackground.size.width, 0, timeBackground.size.width, timeBackground.size.height)];
         _timeLabel.font = [UIFont boldSystemFontOfSize:12.0];
         _timeLabel.textAlignment = NSTextAlignmentRight;
@@ -120,7 +120,7 @@
         _scrubView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [bottomControlBar addSubview:_scrubView];
         
-        self.tvConnectedImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"VevoSDKResources.bundle/VMMoviePlayer/images/tvconnected.png"]];
+        self.tvConnectedImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tvconnected.png"]];
         
         //get bundle for function
         static dispatch_once_t fetchBundleOnce;
@@ -240,14 +240,14 @@
 /* Show the stop button in the movie player controller. */
 -(void)showStopButton
 {
-    UIImage *playButtonImage = [UIImage imageNamed:@"VevoSDKResources.bundle/VMMoviePlayer/images/player_pause_icon.png"];
+    UIImage *playButtonImage = [UIImage imageNamed:@"player_pause_icon.png"];
     [playButton setImage:playButtonImage forState:UIControlStateNormal];
 }
 
 /* Show the play button in the movie player controller. */
 -(void)showPlayButton
 {
-    UIImage *playButtonImage = [UIImage imageNamed:@"VevoSDKResources.bundle/VMMoviePlayer/images/player_play_icon.png"];
+    UIImage *playButtonImage = [UIImage imageNamed:@"player_play_icon.png"];
     [playButton setImage:playButtonImage forState:UIControlStateNormal];
 }
 
