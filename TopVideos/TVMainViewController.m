@@ -36,6 +36,8 @@
     //add notification
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appOpened) name:@"APP_OPENED" object:nil];
     
+    playingAds = NO;
+    
     //setup tableview
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain];
     self.tableView.delegate = self;
@@ -95,46 +97,51 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    NSString *isrcTempString = [[[topVideos objectForKey:@"default"] objectAtIndex:indexPath.row] valueForKey:@"isrc"];
+    //if the app is not playing adds, allow user to select
+    if(!playingAds){
     
-    //retrieve video information from server
-    [[VMApiFacade sharedInstance] searchWithIsrc:isrcTempString successBlock:^(id results){
+        NSString *isrcTempString = [[[topVideos objectForKey:@"default"] objectAtIndex:indexPath.row] valueForKey:@"isrc"];
         
-                NSLog(@"success %@",results);
-                VMVideo *video = [[VMVideo alloc] initFromDictionary:results];
-        
-        //nil case
-        if (video != nil) {
-            //valid video case
-            if (video) {
-                
-                bool movieViewInController = NO;
-                
-                //check to see if the movieView is on the screen
-                for(UIView *object in self.view.subviews){
-                    if([object class] == [TVMovieContainerView class]){
-                        movieViewInController = YES;
+        //retrieve video information from server
+        [[VMApiFacade sharedInstance] searchWithIsrc:isrcTempString successBlock:^(id results){
+            
+                    NSLog(@"success %@",results);
+                    VMVideo *video = [[VMVideo alloc] initFromDictionary:results];
+            
+            //nil case
+            if (video != nil) {
+                //valid video case
+                if (video) {
+                    
+                    bool movieViewInController = NO;
+                    
+                    //check to see if the movieView is on the screen
+                    for(UIView *object in self.view.subviews){
+                        if([object class] == [TVMovieContainerView class]){
+                            movieViewInController = YES;
+                        }
+                    }
+                    
+                    //if the view is on screen, play video
+                    if(movieViewInController){
+                        [self.movieContainerView stopVideo];
+                        [self.movieContainerView playVideo:video];
+                    }
+                    //if the view is not on screen, insert the view
+                    else{
+                      [self insertVideoPlayerWithVideo:video];
                     }
                 }
-                
-                //if the view is on screen, play video
-                if(movieViewInController){
-                    [self.movieContainerView stopVideo];
-                    [self.movieContainerView playVideo:video];
-                }
-                //if the view is not on screen, insert the view
-                else{
-                  [self insertVideoPlayerWithVideo:video];
-                }
             }
-        }
-        }
-          errorBlock:^(NSError *error){
-              NSLog(@"failure %@",error);
-          }];
+            }
+              errorBlock:^(NSError *error){
+                  NSLog(@"failure %@",error);
+              }];
+        
+    }
 }
 
-#pragma mark - play video 
+#pragma mark - play video
 - (void)insertVideoPlayerWithVideo:(VMVideo *)video
 {
     self.movieContainerView = [[TVMovieContainerView alloc] initWithFrame:CGRectMake(0,
@@ -152,6 +159,7 @@
                                                                       0,
                                                                       self.view.frame.size.width,
                                                                       self.view.frame.size.height * VIDEO_VIEW_HEIGHT_RATIO);
+                         NSLog(@"frame=%@", NSStringFromCGRect(self.movieContainerView.frame));
                          self.tableView.frame = CGRectMake(0, self.view.frame.size.height * VIDEO_VIEW_HEIGHT_RATIO, self.view.frame.size.width, self.view.frame.size.height * (1 - VIDEO_VIEW_HEIGHT_RATIO));
                      }
                      completion:^(BOOL finished){
@@ -200,6 +208,19 @@
                                             errorBlock:^(NSError *error){
                                                 NSLog(@"%@",error);
                                             }];
+}
+
+#pragma mark - ads
+- (void)startedPlayingAds
+{
+    playingAds = YES;
+    NSLog(@"ads");
+}
+
+- (void)stoppedPlayingAds
+{
+    playingAds = NO;
+    NSLog(@" no ads");
 }
 
 @end

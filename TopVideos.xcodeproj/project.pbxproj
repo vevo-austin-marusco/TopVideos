@@ -50,10 +50,8 @@
 		59B1343717D7F6BC006051B9 /* TVMovieContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 59B1343617D7F6BC006051B9 /* TVMovieContainerView.m */; };
 		59B1343A17D7FCB2006051B9 /* TVPlayerTopBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 59B1343917D7FCB2006051B9 /* TVPlayerTopBarView.m */; };
 		59B1343D17D7FDC9006051B9 /* TVVideoInfoOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 59B1343C17D7FDC9006051B9 /* TVVideoInfoOverlayView.m */; };
-		59B1344217D81769006051B9 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 59B1343E17D81769006051B9 /* icon.png */; };
-		59B1344317D81769006051B9 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 59B1343F17D81769006051B9 /* icon@2x.png */; };
-		59B1344417D81769006051B9 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 59B1344017D81769006051B9 /* Icon-72.png */; };
-		59B1344517D81769006051B9 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 59B1344117D81769006051B9 /* Icon-Small-50.png */; };
+		59B1344C17D901F3006051B9 /* TVMoviePlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59B1344B17D901F3006051B9 /* TVMoviePlayerController.m */; };
+		59B1344F17D90223006051B9 /* TVAVMoviePlayerControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 59B1344E17D90223006051B9 /* TVAVMoviePlayerControlView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,10 +133,10 @@
 		59B1343917D7FCB2006051B9 /* TVPlayerTopBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVPlayerTopBarView.m; sourceTree = "<group>"; };
 		59B1343B17D7FDC9006051B9 /* TVVideoInfoOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVVideoInfoOverlayView.h; sourceTree = "<group>"; };
 		59B1343C17D7FDC9006051B9 /* TVVideoInfoOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVVideoInfoOverlayView.m; sourceTree = "<group>"; };
-		59B1343E17D81769006051B9 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
-		59B1343F17D81769006051B9 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
-		59B1344017D81769006051B9 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
-		59B1344117D81769006051B9 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
+		59B1344A17D901F3006051B9 /* TVMoviePlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVMoviePlayerController.h; sourceTree = "<group>"; };
+		59B1344B17D901F3006051B9 /* TVMoviePlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVMoviePlayerController.m; sourceTree = "<group>"; };
+		59B1344D17D90223006051B9 /* TVAVMoviePlayerControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVAVMoviePlayerControlView.h; sourceTree = "<group>"; };
+		59B1344E17D90223006051B9 /* TVAVMoviePlayerControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVAVMoviePlayerControlView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -251,6 +249,10 @@
 				59B1343917D7FCB2006051B9 /* TVPlayerTopBarView.m */,
 				59B1343B17D7FDC9006051B9 /* TVVideoInfoOverlayView.h */,
 				59B1343C17D7FDC9006051B9 /* TVVideoInfoOverlayView.m */,
+				59B1344A17D901F3006051B9 /* TVMoviePlayerController.h */,
+				59B1344B17D901F3006051B9 /* TVMoviePlayerController.m */,
+				59B1344D17D90223006051B9 /* TVAVMoviePlayerControlView.h */,
+				59B1344E17D90223006051B9 /* TVAVMoviePlayerControlView.m */,
 			);
 			path = TopVideos;
 			sourceTree = "<group>";
@@ -313,10 +315,6 @@
 		59B1342417D7B9FB006051B9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				59B1343E17D81769006051B9 /* icon.png */,
-				59B1343F17D81769006051B9 /* icon@2x.png */,
-				59B1344017D81769006051B9 /* Icon-72.png */,
-				59B1344117D81769006051B9 /* Icon-Small-50.png */,
 				59B1342C17D7D4AC006051B9 /* ProximaNovaAlt-Light.otf */,
 				59B1342817D7BAD5006051B9 /* ProximaNovaAlt-Black.otf */,
 				59B1342A17D7BB6A006051B9 /* ProximaNovaAlt-Bold.otf */,
@@ -432,17 +430,13 @@
 			files = (
 				59B1343317D7D4CB006051B9 /* ProximaNovaAlt-Thin.otf in Resources */,
 				59B1342917D7BAD5006051B9 /* ProximaNovaAlt-Black.otf in Resources */,
-				59B1344317D81769006051B9 /* icon@2x.png in Resources */,
 				59B1342D17D7D4AC006051B9 /* ProximaNovaAlt-Light.otf in Resources */,
 				5987947B17D66F1200101BE8 /* Main_iPad.storyboard in Resources */,
-				59B1344417D81769006051B9 /* Icon-72.png in Resources */,
 				59B1343117D7D4C3006051B9 /* ProximaNovaAlt-Sbold.otf in Resources */,
 				5987948017D66F1200101BE8 /* Images.xcassets in Resources */,
 				59B1342F17D7D4B4006051B9 /* ProximaNovaAlt-Reg.otf in Resources */,
 				5987947817D66F1200101BE8 /* Main_iPhone.storyboard in Resources */,
-				59B1344217D81769006051B9 /* icon.png in Resources */,
 				5987946F17D66F1200101BE8 /* InfoPlist.strings in Resources */,
-				59B1344517D81769006051B9 /* Icon-Small-50.png in Resources */,
 				59B1342B17D7BB6A006051B9 /* ProximaNovaAlt-Bold.otf in Resources */,
 				594B194E17D69A840055C5DE /* Default-568h@2x.png in Resources */,
 			);
@@ -465,11 +459,13 @@
 			files = (
 				59B1342017D6AA7F006051B9 /* TVTopVideosTableViewCell.m in Sources */,
 				5987947117D66F1200101BE8 /* main.m in Sources */,
+				59B1344F17D90223006051B9 /* TVAVMoviePlayerControlView.m in Sources */,
 				5987947E17D66F1200101BE8 /* TVMainViewController.m in Sources */,
 				59B1343A17D7FCB2006051B9 /* TVPlayerTopBarView.m in Sources */,
 				5987947517D66F1200101BE8 /* TVAppDelegate.m in Sources */,
 				59B1343717D7F6BC006051B9 /* TVMovieContainerView.m in Sources */,
 				59B1343D17D7FDC9006051B9 /* TVVideoInfoOverlayView.m in Sources */,
+				59B1344C17D901F3006051B9 /* TVMoviePlayerController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

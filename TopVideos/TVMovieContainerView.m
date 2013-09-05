@@ -148,11 +148,11 @@ enum {
 
 - (void) moviePlayerStartPlayingAds{
     //Freeze recommendation table when playing ads
-  //  _recommendationsTable.userInteractionEnabled = NO;
+    [self.delegateObject performSelector:@selector(startedPlayingAds) withObject:nil];
 }
 - (void) moviePlayerEndPlayingAds{
     //Re-enable recommendation table after playing ads
-   // _recommendationsTable.userInteractionEnabled = YES;
+    [self.delegateObject performSelector:@selector(stoppedPlayingAds) withObject:nil];
 }
 
 

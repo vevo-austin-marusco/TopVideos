@@ -10,6 +10,7 @@
 
 @interface TVMainViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>{
     NSMutableDictionary *topVideos;
+    bool playingAds;
 }
 
 @property (nonatomic,retain) UITableView *tableView;
