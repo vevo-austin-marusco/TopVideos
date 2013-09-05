@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VMViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>{
+@interface TVMainViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>{
     NSMutableDictionary *topVideos;
 }
 

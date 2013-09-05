@@ -29,10 +29,10 @@
 		5987946917D66F1200101BE8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5987946817D66F1200101BE8 /* UIKit.framework */; };
 		5987946F17D66F1200101BE8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5987946D17D66F1200101BE8 /* InfoPlist.strings */; };
 		5987947117D66F1200101BE8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5987947017D66F1200101BE8 /* main.m */; };
-		5987947517D66F1200101BE8 /* VMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5987947417D66F1200101BE8 /* VMAppDelegate.m */; };
+		5987947517D66F1200101BE8 /* TVAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5987947417D66F1200101BE8 /* TVAppDelegate.m */; };
 		5987947817D66F1200101BE8 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5987947617D66F1200101BE8 /* Main_iPhone.storyboard */; };
 		5987947B17D66F1200101BE8 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5987947917D66F1200101BE8 /* Main_iPad.storyboard */; };
-		5987947E17D66F1200101BE8 /* VMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5987947D17D66F1200101BE8 /* VMViewController.m */; };
+		5987947E17D66F1200101BE8 /* TVMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5987947D17D66F1200101BE8 /* TVMainViewController.m */; };
 		5987948017D66F1200101BE8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5987947F17D66F1200101BE8 /* Images.xcassets */; };
 		5987948717D66F1200101BE8 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5987948617D66F1200101BE8 /* XCTest.framework */; };
 		5987948817D66F1200101BE8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5987946417D66F1200101BE8 /* Foundation.framework */; };
@@ -40,7 +40,20 @@
 		5987949117D66F1200101BE8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5987948F17D66F1200101BE8 /* InfoPlist.strings */; };
 		5987949317D66F1200101BE8 /* TopVideosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5987949217D66F1200101BE8 /* TopVideosTests.m */; };
 		5987976217D6837200101BE8 /* VevoSDKResources.bundle in Frameworks */ = {isa = PBXBuildFile; fileRef = 5987975A17D6820000101BE8 /* VevoSDKResources.bundle */; };
-		59B1342017D6AA7F006051B9 /* VMTopVideosTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 59B1341F17D6AA7E006051B9 /* VMTopVideosTableViewCell.m */; };
+		59B1342017D6AA7F006051B9 /* TVTopVideosTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 59B1341F17D6AA7E006051B9 /* TVTopVideosTableViewCell.m */; };
+		59B1342917D7BAD5006051B9 /* ProximaNovaAlt-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 59B1342817D7BAD5006051B9 /* ProximaNovaAlt-Black.otf */; };
+		59B1342B17D7BB6A006051B9 /* ProximaNovaAlt-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 59B1342A17D7BB6A006051B9 /* ProximaNovaAlt-Bold.otf */; };
+		59B1342D17D7D4AC006051B9 /* ProximaNovaAlt-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 59B1342C17D7D4AC006051B9 /* ProximaNovaAlt-Light.otf */; };
+		59B1342F17D7D4B4006051B9 /* ProximaNovaAlt-Reg.otf in Resources */ = {isa = PBXBuildFile; fileRef = 59B1342E17D7D4B4006051B9 /* ProximaNovaAlt-Reg.otf */; };
+		59B1343117D7D4C3006051B9 /* ProximaNovaAlt-Sbold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 59B1343017D7D4C3006051B9 /* ProximaNovaAlt-Sbold.otf */; };
+		59B1343317D7D4CB006051B9 /* ProximaNovaAlt-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 59B1343217D7D4CB006051B9 /* ProximaNovaAlt-Thin.otf */; };
+		59B1343717D7F6BC006051B9 /* TVMovieContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 59B1343617D7F6BC006051B9 /* TVMovieContainerView.m */; };
+		59B1343A17D7FCB2006051B9 /* TVPlayerTopBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 59B1343917D7FCB2006051B9 /* TVPlayerTopBarView.m */; };
+		59B1343D17D7FDC9006051B9 /* TVVideoInfoOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 59B1343C17D7FDC9006051B9 /* TVVideoInfoOverlayView.m */; };
+		59B1344217D81769006051B9 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 59B1343E17D81769006051B9 /* icon.png */; };
+		59B1344317D81769006051B9 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 59B1343F17D81769006051B9 /* icon@2x.png */; };
+		59B1344417D81769006051B9 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 59B1344017D81769006051B9 /* Icon-72.png */; };
+		59B1344517D81769006051B9 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 59B1344117D81769006051B9 /* Icon-Small-50.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,12 +106,12 @@
 		5987946E17D66F1200101BE8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5987947017D66F1200101BE8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5987947217D66F1200101BE8 /* TopVideos-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TopVideos-Prefix.pch"; sourceTree = "<group>"; };
-		5987947317D66F1200101BE8 /* VMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VMAppDelegate.h; sourceTree = "<group>"; };
-		5987947417D66F1200101BE8 /* VMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VMAppDelegate.m; sourceTree = "<group>"; };
+		5987947317D66F1200101BE8 /* TVAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVAppDelegate.h; sourceTree = "<group>"; };
+		5987947417D66F1200101BE8 /* TVAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVAppDelegate.m; sourceTree = "<group>"; };
 		5987947717D66F1200101BE8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		5987947A17D66F1200101BE8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
-		5987947C17D66F1200101BE8 /* VMViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VMViewController.h; sourceTree = "<group>"; };
-		5987947D17D66F1200101BE8 /* VMViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VMViewController.m; sourceTree = "<group>"; };
+		5987947C17D66F1200101BE8 /* TVMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TVMainViewController.h; sourceTree = "<group>"; };
+		5987947D17D66F1200101BE8 /* TVMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TVMainViewController.m; sourceTree = "<group>"; };
 		5987947F17D66F1200101BE8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5987948517D66F1200101BE8 /* TopVideosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TopVideosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5987948617D66F1200101BE8 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -107,9 +120,25 @@
 		5987949217D66F1200101BE8 /* TopVideosTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopVideosTests.m; sourceTree = "<group>"; };
 		5987975A17D6820000101BE8 /* VevoSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = VevoSDKResources.bundle; path = "TopVideos/3rd_party/vevo-ios-sdk/VevoSDKResources.bundle"; sourceTree = "<group>"; };
 		5997163817D68DEE006C0AE4 /* vevo-ios-sdk.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "vevo-ios-sdk.xcodeproj"; path = "../../../Downloads/iOS_SDK-master/VML/vevo-ios-sdk/vevo-ios-sdk.xcodeproj"; sourceTree = "<group>"; };
-		59B1341D17D6A7BD006051B9 /* VMConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMConstants.h; sourceTree = "<group>"; };
-		59B1341E17D6AA7E006051B9 /* VMTopVideosTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VMTopVideosTableViewCell.h; sourceTree = "<group>"; };
-		59B1341F17D6AA7E006051B9 /* VMTopVideosTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMTopVideosTableViewCell.m; sourceTree = "<group>"; };
+		59B1341D17D6A7BD006051B9 /* TVConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVConstants.h; sourceTree = "<group>"; };
+		59B1341E17D6AA7E006051B9 /* TVTopVideosTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVTopVideosTableViewCell.h; sourceTree = "<group>"; };
+		59B1341F17D6AA7E006051B9 /* TVTopVideosTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVTopVideosTableViewCell.m; sourceTree = "<group>"; };
+		59B1342817D7BAD5006051B9 /* ProximaNovaAlt-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNovaAlt-Black.otf"; sourceTree = "<group>"; };
+		59B1342A17D7BB6A006051B9 /* ProximaNovaAlt-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNovaAlt-Bold.otf"; sourceTree = "<group>"; };
+		59B1342C17D7D4AC006051B9 /* ProximaNovaAlt-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNovaAlt-Light.otf"; sourceTree = "<group>"; };
+		59B1342E17D7D4B4006051B9 /* ProximaNovaAlt-Reg.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNovaAlt-Reg.otf"; sourceTree = "<group>"; };
+		59B1343017D7D4C3006051B9 /* ProximaNovaAlt-Sbold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNovaAlt-Sbold.otf"; sourceTree = "<group>"; };
+		59B1343217D7D4CB006051B9 /* ProximaNovaAlt-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNovaAlt-Thin.otf"; sourceTree = "<group>"; };
+		59B1343517D7F6BC006051B9 /* TVMovieContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVMovieContainerView.h; sourceTree = "<group>"; };
+		59B1343617D7F6BC006051B9 /* TVMovieContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVMovieContainerView.m; sourceTree = "<group>"; };
+		59B1343817D7FCB2006051B9 /* TVPlayerTopBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVPlayerTopBarView.h; sourceTree = "<group>"; };
+		59B1343917D7FCB2006051B9 /* TVPlayerTopBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVPlayerTopBarView.m; sourceTree = "<group>"; };
+		59B1343B17D7FDC9006051B9 /* TVVideoInfoOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVVideoInfoOverlayView.h; sourceTree = "<group>"; };
+		59B1343C17D7FDC9006051B9 /* TVVideoInfoOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVVideoInfoOverlayView.m; sourceTree = "<group>"; };
+		59B1343E17D81769006051B9 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		59B1343F17D81769006051B9 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
+		59B1344017D81769006051B9 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		59B1344117D81769006051B9 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +185,7 @@
 		5987945817D66F1200101BE8 = {
 			isa = PBXGroup;
 			children = (
+				59B1342417D7B9FB006051B9 /* Resources */,
 				594B194D17D69A840055C5DE /* Default-568h@2x.png */,
 				5987946A17D66F1200101BE8 /* TopVideos */,
 				5987948C17D66F1200101BE8 /* TopVideosTests */,
@@ -206,15 +236,21 @@
 			children = (
 				59B1342117D6B2CE006051B9 /* Views */,
 				598797D217D685D200101BE8 /* 3rd_party */,
-				5987947317D66F1200101BE8 /* VMAppDelegate.h */,
-				5987947417D66F1200101BE8 /* VMAppDelegate.m */,
+				5987947317D66F1200101BE8 /* TVAppDelegate.h */,
+				5987947417D66F1200101BE8 /* TVAppDelegate.m */,
 				5987947617D66F1200101BE8 /* Main_iPhone.storyboard */,
 				5987947917D66F1200101BE8 /* Main_iPad.storyboard */,
-				5987947C17D66F1200101BE8 /* VMViewController.h */,
-				5987947D17D66F1200101BE8 /* VMViewController.m */,
-				59B1341D17D6A7BD006051B9 /* VMConstants.h */,
+				5987947C17D66F1200101BE8 /* TVMainViewController.h */,
+				5987947D17D66F1200101BE8 /* TVMainViewController.m */,
+				59B1341D17D6A7BD006051B9 /* TVConstants.h */,
 				5987947F17D66F1200101BE8 /* Images.xcassets */,
 				5987946B17D66F1200101BE8 /* Supporting Files */,
+				59B1343517D7F6BC006051B9 /* TVMovieContainerView.h */,
+				59B1343617D7F6BC006051B9 /* TVMovieContainerView.m */,
+				59B1343817D7FCB2006051B9 /* TVPlayerTopBarView.h */,
+				59B1343917D7FCB2006051B9 /* TVPlayerTopBarView.m */,
+				59B1343B17D7FDC9006051B9 /* TVVideoInfoOverlayView.h */,
+				59B1343C17D7FDC9006051B9 /* TVVideoInfoOverlayView.m */,
 			);
 			path = TopVideos;
 			sourceTree = "<group>";
@@ -268,10 +304,27 @@
 		59B1342117D6B2CE006051B9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				59B1341E17D6AA7E006051B9 /* VMTopVideosTableViewCell.h */,
-				59B1341F17D6AA7E006051B9 /* VMTopVideosTableViewCell.m */,
+				59B1341E17D6AA7E006051B9 /* TVTopVideosTableViewCell.h */,
+				59B1341F17D6AA7E006051B9 /* TVTopVideosTableViewCell.m */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		59B1342417D7B9FB006051B9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				59B1343E17D81769006051B9 /* icon.png */,
+				59B1343F17D81769006051B9 /* icon@2x.png */,
+				59B1344017D81769006051B9 /* Icon-72.png */,
+				59B1344117D81769006051B9 /* Icon-Small-50.png */,
+				59B1342C17D7D4AC006051B9 /* ProximaNovaAlt-Light.otf */,
+				59B1342817D7BAD5006051B9 /* ProximaNovaAlt-Black.otf */,
+				59B1342A17D7BB6A006051B9 /* ProximaNovaAlt-Bold.otf */,
+				59B1342E17D7D4B4006051B9 /* ProximaNovaAlt-Reg.otf */,
+				59B1343017D7D4C3006051B9 /* ProximaNovaAlt-Sbold.otf */,
+				59B1343217D7D4CB006051B9 /* ProximaNovaAlt-Thin.otf */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -377,10 +430,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59B1343317D7D4CB006051B9 /* ProximaNovaAlt-Thin.otf in Resources */,
+				59B1342917D7BAD5006051B9 /* ProximaNovaAlt-Black.otf in Resources */,
+				59B1344317D81769006051B9 /* icon@2x.png in Resources */,
+				59B1342D17D7D4AC006051B9 /* ProximaNovaAlt-Light.otf in Resources */,
 				5987947B17D66F1200101BE8 /* Main_iPad.storyboard in Resources */,
+				59B1344417D81769006051B9 /* Icon-72.png in Resources */,
+				59B1343117D7D4C3006051B9 /* ProximaNovaAlt-Sbold.otf in Resources */,
 				5987948017D66F1200101BE8 /* Images.xcassets in Resources */,
+				59B1342F17D7D4B4006051B9 /* ProximaNovaAlt-Reg.otf in Resources */,
 				5987947817D66F1200101BE8 /* Main_iPhone.storyboard in Resources */,
+				59B1344217D81769006051B9 /* icon.png in Resources */,
 				5987946F17D66F1200101BE8 /* InfoPlist.strings in Resources */,
+				59B1344517D81769006051B9 /* Icon-Small-50.png in Resources */,
+				59B1342B17D7BB6A006051B9 /* ProximaNovaAlt-Bold.otf in Resources */,
 				594B194E17D69A840055C5DE /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -400,10 +463,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				59B1342017D6AA7F006051B9 /* VMTopVideosTableViewCell.m in Sources */,
+				59B1342017D6AA7F006051B9 /* TVTopVideosTableViewCell.m in Sources */,
 				5987947117D66F1200101BE8 /* main.m in Sources */,
-				5987947E17D66F1200101BE8 /* VMViewController.m in Sources */,
-				5987947517D66F1200101BE8 /* VMAppDelegate.m in Sources */,
+				5987947E17D66F1200101BE8 /* TVMainViewController.m in Sources */,
+				59B1343A17D7FCB2006051B9 /* TVPlayerTopBarView.m in Sources */,
+				5987947517D66F1200101BE8 /* TVAppDelegate.m in Sources */,
+				59B1343717D7F6BC006051B9 /* TVMovieContainerView.m in Sources */,
+				59B1343D17D7FDC9006051B9 /* TVVideoInfoOverlayView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

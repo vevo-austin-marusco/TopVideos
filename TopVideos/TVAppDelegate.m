@@ -6,17 +6,15 @@
 //  Copyright (c) 2013 Vevo. All rights reserved.
 //
 
-#import "VMAppDelegate.h"
+#import "TVAppDelegate.h"
 #import <VevoSDK/VevoSDK.h>
 
 
-@implementation VMAppDelegate
+@implementation TVAppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
-    
     // Override point for customization after application launch.
     return YES;
 }
@@ -41,6 +39,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"APP_OPENED"  object:nil  userInfo: nil];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

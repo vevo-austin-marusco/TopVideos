@@ -14,3 +14,12 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 #endif
+
+//notification definitions
+#define TVNotificationSend(notificationName, obj, extra)  [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:obj userInfo: extra]
+#define TVNotificationAddObserver(notificationName, observer, sel, obj) [[NSNotificationCenter defaultCenter] addObserver:observer selector:sel name:notificationName object: obj]
+#define TVNotificationRemoveObserver(observer,notificationName,obj) [[NSNotificationCenter defaultCenter] removeObserver:observer name:notificationName object:obj];
+
+//APP DELEGATE
+#define APP_DELEGATE  ((AppDelegate *)[UIApplication sharedApplication].delegate)
+ 

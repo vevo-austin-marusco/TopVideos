@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>${PRODUCT_NAME}</string>
+	<string>Vevo Top40</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
@@ -24,6 +24,15 @@
 	<string>1.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>ProximaNovaAlt-Light.otf</string>
+		<string>ProximaNovaAlt-Reg.otf</string>
+		<string>ProximaNovaAlt-SBold.otf</string>
+		<string>ProximaNovaAlt-Thin.otf</string>
+		<string>ProximaNovaAlt-Black.otf</string>
+		<string>ProximaNovaAlt-Bold.otf</string>
+	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>Main_iPhone</string>
 	<key>UIMainStoryboardFile~ipad</key>

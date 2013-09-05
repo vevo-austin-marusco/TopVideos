@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VMTopVideosTableViewCell : UITableViewCell
+@interface TVTopVideosTableViewCell : UITableViewCell
 
 @property (nonatomic,retain) UIImageView *artistImageView;
 @property (nonatomic,retain) UILabel *topVideoCountLabel;
 @property (nonatomic,retain) UILabel *artistNameLabel;
 @property (nonatomic,retain) UILabel *songTitleLabel;
+@property (nonatomic,retain) UIView *textContainerView;
 
 @end
