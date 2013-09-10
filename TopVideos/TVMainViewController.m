@@ -107,7 +107,7 @@ float const kSelectedGenreColorB = 235/255.0f;
                                                                       0,
                                                                       self.view.frame.size.width,
                                                                       [[UIScreen mainScreen]bounds].size.height * kTableViewSectionHeightRatio)];
-    self.genresView.contentSize = CGSizeMake([[UIScreen mainScreen]bounds].size.width/4 * [APP_DELEGATE.genres count],
+    self.genresView.contentSize = CGSizeMake(([[UIScreen mainScreen]bounds].size.width/4 * [APP_DELEGATE.genres count]) + (2 * [[UIScreen mainScreen]bounds].size.width/4),
                                                       [[UIScreen mainScreen]bounds].size.height * kTableViewSectionHeightRatio);
     
     self.genresView.pagingEnabled = YES;
@@ -115,10 +115,23 @@ float const kSelectedGenreColorB = 235/255.0f;
     self.genresView.clipsToBounds = YES;
     self.genresView.userInteractionEnabled = NO;
     
+    //setup the initial two blank scroll view pages
+    //setup all the scroll view pages
+    int blankLabels = 2;
+    for(int i = 0; i < blankLabels; i++){
+        //setup selected genre label
+        CGFloat xOrigin = (i  * self.view.frame.size.width/4 - self.view.frame.size.width/8);
+        UILabel *genreLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOrigin,
+                                                                        0,
+                                                                        self.view.frame.size.width/4,
+                                                                        [[UIScreen mainScreen]bounds].size.height * kTableViewSectionHeightRatio)];
+        [self.genresView addSubview:genreLabel];
+    }
+    
     //setup all the scroll view pages
     for(int i = 0; i < [APP_DELEGATE.genres count]; i++){
         //setup selected genre label
-        CGFloat xOrigin = (i  * self.view.frame.size.width/4);
+        CGFloat xOrigin = ((i + blankLabels)  * self.view.frame.size.width/4) - self.view.frame.size.width/8;
         UILabel *genreLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOrigin,
                                                                         0,
                                                                         self.view.frame.size.width/4,
@@ -388,51 +401,54 @@ float const kSelectedGenreColorB = 235/255.0f;
 #pragma mark - scroll view
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     // Update the page when more than 50% of the previous/next page is visible
-    CGFloat pageWidth = scrollView.frame.size.width;
-    int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-    
-   // NSLog(@"page:%d, oldPage:%d",page,self.page);
+    if([scrollView class] != [UITableView class]){
+        CGFloat pageWidth = scrollView.frame.size.width;
+        int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+        
+       // NSLog(@"page:%d, oldPage:%d",page,self.page);
 
-    
-    //if the page has changed, move the scroll view and set page variable
-    if(page != self.page){
-        self.page = page;
         
-          //scroll the view
-         [self.topVideosScrollView scrollRectToVisible:CGRectMake((scrollView.frame.size.width * self.page),
-                                                                  0,
-                                                                  scrollView.frame.size.width,
-                                                                  scrollView.frame.size.height) animated:YES];
-        
-        //load new genre
-        self.selectedGenre = [APP_DELEGATE.genres objectAtIndex:self.page];
-        
-        //reload selected table view
-        [self reloadSelectedTableView];
-        
-        //shift the genre scroll view
-        [self.genresView scrollRectToVisible:CGRectMake((self.genresView.frame.size.width/4 * self.page),
-                                                                 0,
-                                                                 self.genresView.frame.size.width,
-                                                                 self.genresView.frame.size.height) animated:YES];
-        
-        //set appropriate color for labels
-        //set all the text colors to white
-        for (UILabel *object in self.genresView.subviews){
-            if([object respondsToSelector:@selector(setTextColor:)]){
-                [object setTextColor:[UIColor whiteColor]];
+        //if the page has changed, move the scroll view and set page variable
+        if(page != self.page){
+            self.page = page;
+            
+              //scroll the view
+             [self.topVideosScrollView scrollRectToVisible:CGRectMake((scrollView.frame.size.width * self.page),
+                                                                      0,
+                                                                      scrollView.frame.size.width,
+                                                                      scrollView.frame.size.height) animated:YES];
+            
+            //load new genre
+            self.selectedGenre = [APP_DELEGATE.genres objectAtIndex:self.page];
+            
+            //reload selected table view
+            [self reloadSelectedTableView];
+            
+            //shift the genre scroll view
+            [self.genresView scrollRectToVisible:CGRectMake((self.genresView.frame.size.width/4 * self.page),
+                                                                     0,
+                                                                     self.genresView.frame.size.width,
+                                                                     self.genresView.frame.size.height) animated:YES];
+            
+            //set appropriate color for labels
+            //set all the text colors to white
+            for (UILabel *object in self.genresView.subviews){
+                if([object respondsToSelector:@selector(setTextColor:)]){
+                    [object setTextColor:[UIColor whiteColor]];
+                }
+                
+            }
+            //find the current genre label and set text color
+            UILabel *selectedGenreLabel = ((UILabel *)[self.genresView viewWithTag:[self getCurrentGenreIndex] + 1]);
+            if([selectedGenreLabel respondsToSelector:@selector(setTextColor:)]){
+                        [((UILabel *)[self.genresView viewWithTag:[self getCurrentGenreIndex] + 1]) setTextColor:[UIColor colorWithRed:kSelectedGenreColorR green:kSelectedGenreColorG blue:kSelectedGenreColorB alpha:1.0]];
             }
             
-        }
-        //find the current genre label and set text color
-        UILabel *selectedGenreLabel = ((UILabel *)[self.genresView viewWithTag:[self getCurrentGenreIndex] + 1]);
-        if([selectedGenreLabel respondsToSelector:@selector(setTextColor:)]){
-                    [((UILabel *)[self.genresView viewWithTag:[self getCurrentGenreIndex] + 1]) setTextColor:[UIColor colorWithRed:kSelectedGenreColorR green:kSelectedGenreColorG blue:kSelectedGenreColorB alpha:1.0]];
-        }
-        
 
-        
+            
+        }
     }
+    
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
