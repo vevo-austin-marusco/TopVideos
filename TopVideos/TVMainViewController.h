@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TVMainViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UIGestureRecognizerDelegate>
+@interface TVMainViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UIScrollViewDelegate>
 
-@property (nonatomic,retain) UITableView *tableView;
 @property (nonatomic,retain) UIScrollView *genresView;
+@property (nonatomic,retain) UIScrollView *topVideosScrollView;
 
 @end

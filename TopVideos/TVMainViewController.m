@@ -29,6 +29,7 @@ float const kSelectedGenreColorB = 235/255.0f;
 @interface TVMainViewController ()
 
 @property (nonatomic) bool playingAds;
+@property (nonatomic) int page;
 @property (nonatomic, retain) TVMovieContainerView *movieContainerView;
 @property (nonatomic, retain) NSString *selectedGenre;
 
@@ -41,30 +42,13 @@ float const kSelectedGenreColorB = 235/255.0f;
 {
     [super viewDidLoad];
     
-    //add notification
+    //add notifications
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appOpened) name:@"APP_OPENED" object:nil];
     
+    //set controller's init variables
     self.playingAds = NO;
-    
-    //default genre selection
+    self.page = 0;
     self.selectedGenre = @"top_40_all";
-    
-    //gestures
-    UISwipeGestureRecognizer *leftGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(leftGestureForSwipeRecognizer:)];
-    [leftGestureRecognizer setDirection:UISwipeGestureRecognizerDirectionLeft];
-    leftGestureRecognizer.delegate = self;
-    [self.view addGestureRecognizer:leftGestureRecognizer];
-    
-    UISwipeGestureRecognizer *rightGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(rightGestureForSwipeRecognizer:)];
-    [rightGestureRecognizer setDirection:UISwipeGestureRecognizerDirectionRight];
-    rightGestureRecognizer.delegate = self;
-    [self.view addGestureRecognizer:rightGestureRecognizer];
-    
-    //setup tableview
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
     //hide status bar
     if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
@@ -76,7 +60,90 @@ float const kSelectedGenreColorB = 235/255.0f;
         [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
     }
     
-    [self.view addSubview:self.tableView];
+    //setup scrollview
+    self.topVideosScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,
+                                                                             [[UIScreen mainScreen]bounds].size.height * kTableViewSectionHeightRatio,
+                                                                              self.view.frame.size.width,
+                                                                              self.view.frame.size.height - ([[UIScreen mainScreen]bounds].size.height * kTableViewSectionHeightRatio))];
+    self.topVideosScrollView.pagingEnabled = YES;
+    self.topVideosScrollView.backgroundColor = [UIColor whiteColor];
+    self.topVideosScrollView.userInteractionEnabled = YES;
+    self.topVideosScrollView.delegate = self;
+    self.topVideosScrollView.contentSize = CGSizeMake([[UIScreen mainScreen]bounds].size.width * [APP_DELEGATE.genres count],
+                                                      [[UIScreen mainScreen]bounds].size.height - ([[UIScreen mainScreen]bounds].size.height * kTableViewSectionHeightRatio));
+    [self.topVideosScrollView setShowsVerticalScrollIndicator:NO];
+    [self.topVideosScrollView setShowsHorizontalScrollIndicator:NO];
+    self.topVideosScrollView.bounces = NO;
+    [self.topVideosScrollView setDirectionalLockEnabled:YES];
+    
+    //setup all the scroll view pages
+    for(int i = 0; i < [APP_DELEGATE.genres count]; i++){
+        //setup selected genre label
+        CGFloat xOrigin = (i  * self.view.frame.size.width);
+        UITableView *genreTableView = [[UITableView alloc] initWithFrame:CGRectMake(xOrigin,
+                                                                        0,
+                                                                        self.view.frame.size.width,
+                                                                        self.view.frame.size.height - [[UIScreen mainScreen]bounds].size.height * kTableViewSectionHeightRatio)];
+        genreTableView.delegate = self;
+        genreTableView.dataSource = self;
+        [genreTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+        [genreTableView setBounces:NO];
+        [genreTableView setClipsToBounds:YES];
+        [genreTableView setDirectionalLockEnabled:YES];
+        //add 1 to tag becuase '0' is always the superview
+        genreTableView.tag = i + 1;
+        
+        [self.topVideosScrollView addSubview:genreTableView];
+    }
+    
+    //set current page
+    CGRect frame = self.topVideosScrollView.frame;
+    frame.origin.x = frame.size.width * [self getCurrentGenreIndex];
+    [self.topVideosScrollView scrollRectToVisible:frame animated:NO];
+    
+    
+    //setup genre scroll view
+    self.genresView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,
+                                                                      0,
+                                                                      self.view.frame.size.width,
+                                                                      [[UIScreen mainScreen]bounds].size.height * kTableViewSectionHeightRatio)];
+    self.genresView.contentSize = CGSizeMake([[UIScreen mainScreen]bounds].size.width/4 * [APP_DELEGATE.genres count],
+                                                      [[UIScreen mainScreen]bounds].size.height * kTableViewSectionHeightRatio);
+    
+    self.genresView.pagingEnabled = YES;
+    self.genresView.backgroundColor = [UIColor blackColor];
+    self.genresView.clipsToBounds = YES;
+    self.genresView.userInteractionEnabled = NO;
+    
+    //setup all the scroll view pages
+    for(int i = 0; i < [APP_DELEGATE.genres count]; i++){
+        //setup selected genre label
+        CGFloat xOrigin = (i  * self.view.frame.size.width/4);
+        UILabel *genreLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOrigin,
+                                                                        0,
+                                                                        self.view.frame.size.width/4,
+                                                                        [[UIScreen mainScreen]bounds].size.height * kTableViewSectionHeightRatio)];
+        genreLabel.font = [UIFont fontWithName:@"ProximaNovaA-Bold" size:10];
+        genreLabel.textAlignment = NSTextAlignmentCenter;
+        
+        //set the middle label to a difference color
+        if(i == 0){
+            genreLabel.textColor = [UIColor colorWithRed:kSelectedGenreColorR green:kSelectedGenreColorG blue:kSelectedGenreColorB alpha:1.0];
+        }
+        else{
+            genreLabel.textColor = [UIColor whiteColor];
+        }
+        
+        //set the text to the appropriate value w/ offset
+        genreLabel.text = [APP_DELEGATE.genres objectAtIndex:i];
+        genreLabel.tag = i + 1;
+        
+        [self.genresView addSubview:genreLabel];
+    }
+    
+    //add subviews
+    [self.view addSubview:self.genresView];
+    [self.view addSubview:self.topVideosScrollView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -98,67 +165,9 @@ float const kSelectedGenreColorB = 235/255.0f;
     return kTopVideosLoadCount;
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [UIApplication sharedApplication].keyWindow.rootViewController.view.frame.size.height * kTableViewCellHeightRatio;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return [UIApplication sharedApplication].keyWindow.rootViewController.view.frame.size.height * kTableViewSectionHeightRatio;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,
-                                                                              0,
-                                                                              self.view.frame.size.width,
-                                                                              [UIApplication sharedApplication].keyWindow.rootViewController.view.frame.size.height * kTableViewSectionHeightRatio)];
-    
-    scrollView.pagingEnabled = YES;
-    scrollView.backgroundColor = [UIColor blackColor];
-    scrollView.clipsToBounds = YES;
-    scrollView.userInteractionEnabled = NO;
-    
-    //setup all the scroll view pages
-    for(int i = 0; i < [APP_DELEGATE.genres count]; i++){
-        //setup selected genre label
-        CGFloat xOrigin = (i  * self.view.frame.size.width/4);
-        UILabel *genreLabel = [[UILabel alloc] initWithFrame:CGRectMake(xOrigin,
-                                                                        0,
-                                                                        self.view.frame.size.width/4,
-                                                                        [UIApplication sharedApplication].keyWindow.rootViewController.view.frame.size.height * kTableViewSectionHeightRatio)];
-        genreLabel.font = [UIFont fontWithName:@"ProximaNovaA-Bold" size:10];
-        genreLabel.textAlignment = NSTextAlignmentCenter;
-        
-        //set the middle label to a difference color
-        if(i == 0){
-          genreLabel.textColor = [UIColor colorWithRed:kSelectedGenreColorR green:kSelectedGenreColorG blue:kSelectedGenreColorB alpha:1.0];
-        }
-        else{
-          genreLabel.textColor = [UIColor whiteColor];
-        }
-        
-        //set the text to the appropriate value w/ offset
-        genreLabel.text = [APP_DELEGATE.genres objectAtIndex:i];
-        
-        [scrollView addSubview:genreLabel];
-    }
-    
-    //set current page
-    CGRect frame = scrollView.frame;
-    frame.origin.x = frame.size.width/4 * [self getCurrentGenreIndex];
-    frame.origin.y = 0;
-    [scrollView scrollRectToVisible:frame animated:NO];
-    
-    self.genresView = scrollView;
-    
-    return scrollView;
+    return [[UIScreen mainScreen]bounds].size.height * kTableViewCellHeightRatio;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -248,14 +257,27 @@ float const kSelectedGenreColorB = 235/255.0f;
                           delay:0.0
                         options:UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
+                         
+                         //shift the view frames
                          self.movieContainerView.frame = CGRectMake(0,
-                                                                      0,
+                                                                    0,
                                                                       self.view.frame.size.width,
                                                                       self.view.frame.size.height * kVideoViewHeightRatio);
-                         NSLog(@"frame=%@", NSStringFromCGRect(self.movieContainerView.frame));
-                         self.tableView.frame = CGRectMake(0, self.view.frame.size.height * kVideoViewHeightRatio, self.view.frame.size.width, self.view.frame.size.height * (1 - kVideoViewHeightRatio));
+                         
+                         self.genresView.frame = CGRectMake(0,
+                                                            (self.view.frame.size.height * kVideoViewHeightRatio),
+                                                            self.view.frame.size.width,
+                                                            self.view.frame.size.height * kTableViewSectionHeightRatio);
+                         
+                         self.topVideosScrollView.frame =CGRectMake(0,
+                                                                    self.view.frame.size.height * kVideoViewHeightRatio + self.view.frame.size.height * kTableViewSectionHeightRatio,
+                                                                    self.view.frame.size.width,
+                                                                    self.view.frame.size.height - (self.view.frame.size.height * kVideoViewHeightRatio) + (self.view.frame.size.height * kTableViewSectionHeightRatio));
                      }
                      completion:^(BOOL finished){
+                         //set the content size
+                         self.topVideosScrollView.contentSize = CGSizeMake(self.view.frame.size.width * [APP_DELEGATE.genres count],
+                                                                           self.view.frame.size.height - (self.view.frame.size.height * kTableViewSectionHeightRatio) - (self.view.frame.size.height * kVideoViewHeightRatio));
                          
                      }];
     
@@ -269,7 +291,17 @@ float const kSelectedGenreColorB = 235/255.0f;
                           delay:0.0
                         options:UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
-                        self.tableView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+                         
+                         //shift the view frames
+                         self.topVideosScrollView.frame =CGRectMake(0,
+                                                                    self.view.frame.size.height * kTableViewSectionHeightRatio,
+                                                                    self.view.frame.size.width,
+                                                                    self.view.frame.size.height - (self.view.frame.size.height * kTableViewSectionHeightRatio));
+
+                         self.genresView.frame = CGRectMake(0,
+                                                           0,
+                                                           self.view.frame.size.width,
+                                                           self.view.frame.size.height * kTableViewSectionHeightRatio);
                          self.movieContainerView.frame = CGRectMake(0,
                                                                     -(self.view.frame.size.height * kVideoViewHeightRatio),
                                                                     self.view.frame.size.width,
@@ -282,25 +314,35 @@ float const kSelectedGenreColorB = 235/255.0f;
                                  [object removeFromSuperview];
                              }
                          }
+                         
+                         //shift the view frames
+                         self.topVideosScrollView.contentSize = CGSizeMake(self.view.frame.size.width * [APP_DELEGATE.genres count],
+                                                                           self.view.frame.size.height - (self.view.frame.size.height * kTableViewSectionHeightRatio));
                      }];
 }
 
 #pragma mark - other
 - (void)appOpened{
+    [self reloadSelectedTableView];
+}
+
+- (void)reloadSelectedTableView{
     //get list of videos from server and reload tableview when finished
-    [[VMApiFacade sharedInstance] getTopVideosForOrder:@"" genre:@"" offset:0 limit:kTopVideosLoadCount
+    [[VMApiFacade sharedInstance] getTopVideosForOrder:@"" genre:[APP_DELEGATE.genres objectAtIndex:[self getCurrentGenreIndex]] offset:0 limit:kTopVideosLoadCount
                                           successBlock:^(id results){
                                               
-                                              NSLog(@"%@",results);
-                                              
-                                              //set top videos dictionary and reload data
-                                              [APP_DELEGATE.genreData replaceObjectAtIndex:[self getCurrentGenreIndex] withObject:results];
-                                              [self.tableView reloadData];
-                                              
-                                          }
-                                            errorBlock:^(NSError *error){
-                                                NSLog(@"%@",error);
-                                            }];
+          //    NSLog(@"%@",results);
+              
+              //set top videos dictionary and reload data
+              [APP_DELEGATE.genreData replaceObjectAtIndex:[self getCurrentGenreIndex] withObject:results];
+              
+              //add 1 to tag becuase '0' is always the superview
+              [((UITableView *)[self.topVideosScrollView viewWithTag:[self getCurrentGenreIndex] + 1]) reloadData];
+              
+          }
+            errorBlock:^(NSError *error){
+                NSLog(@"%@",error);
+            }];
 }
 
 // used for status bar preferrences
@@ -324,35 +366,6 @@ float const kSelectedGenreColorB = 235/255.0f;
     return 0;
 }
 
-//return the correct offset index for an array
-- (int)getOffsetValueWithArray:(NSMutableArray *)inputArray Offset:(int)offset Index:(int)index
-{
-    int tempIndex = index;
-    
-    if(offset > 0){
-        for(int i = 0; i < offset; i++){
-            if(tempIndex == [inputArray count] - 1){
-                tempIndex = 0;
-            }
-            else{
-                tempIndex += 1;
-            }
-        }
-    }
-    else{
-        for(int i = 0; i < (0 - offset); i++){
-            if(tempIndex == 0){
-                tempIndex = [inputArray count] - 1;
-            }
-            else{
-                tempIndex -= 1;
-            }
-        }
-    }
-    
-    return tempIndex;
-}
-
 //returns a genre that corresponds with a given index
 - (NSString *)getGenreForIndex:(int)index
 {
@@ -372,54 +385,67 @@ float const kSelectedGenreColorB = 235/255.0f;
     NSLog(@" no ads");
 }
 
-#pragma mark - gestures
-//user swipes to the left on tableview
-- (void)leftGestureForSwipeRecognizer:(UISwipeGestureRecognizer *)recognizer {
-    //remove the video player view w/ animation
-    [UIView animateWithDuration:0.4
-                          delay:0.0
-                        options:UIViewAnimationOptionBeginFromCurrentState
-                     animations:^{
-                         
-                        int newIndexAfterSwipe = -1;
-                         
-                        if([self getCurrentGenreIndex] == [APP_DELEGATE.genres count] - 1){
-                          newIndexAfterSwipe = 0;
-                        }
-                        else{
-                          newIndexAfterSwipe = [self getCurrentGenreIndex] + 1;
-                        }
-                         
-                         self.selectedGenre = [APP_DELEGATE.genres objectAtIndex:newIndexAfterSwipe];
-                         
-                         CGRect frame = self.genresView.frame;
-                         frame.origin.x = frame.size.width/4 * [self getCurrentGenreIndex];
-                         frame.origin.y = 0;
-                         [self.genresView scrollRectToVisible:frame animated:YES];
-                         
-                         //get list of videos from server and reload tableview when finished
-                     /*    [[VMApiFacade sharedInstance] getTopVideosForOrder:@"" genre:@"" offset:0 limit:kTopVideosLoadCount
-                                                       successBlock:^(id results){
-                                                           
-                                                           NSLog(@"%@",results);
-                                                           
-                                                           //set top videos dictionary and reload data
-                                                           [APP_DELEGATE.genreData replaceObjectAtIndex:[self getCurrentGenreIndex] withObject:results];
-                                                           [self.tableView reloadData];
-                                                           
-                                                       }
-                                                         errorBlock:^(NSError *error){
-                                                             NSLog(@"%@",error);
-                                                         }];
-                      */
-                     }
-                     completion:^(BOOL finished){
-
-                     }];
-}
-//user swipes to the right on tableview
-- (void)rightGestureForSwipeRecognizer:(UISwipeGestureRecognizer *)recognizer {
+#pragma mark - scroll view
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    // Update the page when more than 50% of the previous/next page is visible
+    CGFloat pageWidth = scrollView.frame.size.width;
+    int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     
+   // NSLog(@"page:%d, oldPage:%d",page,self.page);
+
+    
+    //if the page has changed, move the scroll view and set page variable
+    if(page != self.page){
+        self.page = page;
+        
+          //scroll the view
+         [self.topVideosScrollView scrollRectToVisible:CGRectMake((scrollView.frame.size.width * self.page),
+                                                                  0,
+                                                                  scrollView.frame.size.width,
+                                                                  scrollView.frame.size.height) animated:YES];
+        
+        //load new genre
+        self.selectedGenre = [APP_DELEGATE.genres objectAtIndex:self.page];
+        
+        //reload selected table view
+        [self reloadSelectedTableView];
+        
+        //shift the genre scroll view
+        [self.genresView scrollRectToVisible:CGRectMake((self.genresView.frame.size.width/4 * self.page),
+                                                                 0,
+                                                                 self.genresView.frame.size.width,
+                                                                 self.genresView.frame.size.height) animated:YES];
+        
+        //set appropriate color for labels
+        //set all the text colors to white
+        for (UILabel *object in self.genresView.subviews){
+            if([object respondsToSelector:@selector(setTextColor:)]){
+                [object setTextColor:[UIColor whiteColor]];
+            }
+            
+        }
+        //find the current genre label and set text color
+        UILabel *selectedGenreLabel = ((UILabel *)[self.genresView viewWithTag:[self getCurrentGenreIndex] + 1]);
+        if([selectedGenreLabel respondsToSelector:@selector(setTextColor:)]){
+                    [((UILabel *)[self.genresView viewWithTag:[self getCurrentGenreIndex] + 1]) setTextColor:[UIColor colorWithRed:kSelectedGenreColorR green:kSelectedGenreColorG blue:kSelectedGenreColorB alpha:1.0]];
+        }
+        
+
+        
+    }
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    NSLog(@"begin");
+    UITableView *tableView = (UITableView *)[self.topVideosScrollView viewWithTag:[self getCurrentGenreIndex] + 1];
+    [tableView setUserInteractionEnabled:NO];
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
+{
+    NSLog(@"end");
+    UITableView *tableView = (UITableView *)[self.topVideosScrollView viewWithTag:[self getCurrentGenreIndex] + 1];
+    [tableView setUserInteractionEnabled:YES];
 }
 
 @end

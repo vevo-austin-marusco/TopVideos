@@ -19,7 +19,18 @@
 {
     //initiate the genres array
     //TO-DO cache the genres array
-    self.genres = [NSMutableArray arrayWithObjects: @"top_40_all",@"music_map",@"pop",@"alternative_rock",@"hip-hop_rap",@"r&b_soul",@"electronic",@"country",nil];
+    self.genres = [NSMutableArray arrayWithObjects: @"top_40_all",
+                   @"rock",
+                   @"pop",
+                   @"alternative",
+                   @"raphip-hop",
+                   @"rbsoul",
+                   @"electronicdance",
+                   @"metal",
+                   @"latino",
+                   @"indie",
+                   @"country",nil];
+    
     self.genreData = [[NSMutableArray alloc] initWithObjects:[[NSArray alloc] init],
                       [[NSArray alloc] init],
                       [[NSArray alloc] init],
