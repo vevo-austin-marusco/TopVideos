@@ -60,6 +60,7 @@
 		59FAEE7717D925C80079419E /* playercontrol_time_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 59FAEE7517D925C80079419E /* playercontrol_time_bg@2x.png */; };
 		59FAEE7A17D932BD0079419E /* close_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 59FAEE7817D932BD0079419E /* close_button.png */; };
 		59FAEE7B17D932BD0079419E /* close_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 59FAEE7917D932BD0079419E /* close_button@2x.png */; };
+		59FAEE8017DE4F200079419E /* TVConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 59FAEE7F17DE4F200079419E /* TVConstants.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -126,7 +127,6 @@
 		5987949217D66F1200101BE8 /* TopVideosTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopVideosTests.m; sourceTree = "<group>"; };
 		5987975A17D6820000101BE8 /* VevoSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = VevoSDKResources.bundle; path = "TopVideos/3rd_party/vevo-ios-sdk/VevoSDKResources.bundle"; sourceTree = "<group>"; };
 		5997163817D68DEE006C0AE4 /* vevo-ios-sdk.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "vevo-ios-sdk.xcodeproj"; path = "../../../Downloads/iOS_SDK-master/VML/vevo-ios-sdk/vevo-ios-sdk.xcodeproj"; sourceTree = "<group>"; };
-		59B1341D17D6A7BD006051B9 /* TVConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVConstants.h; sourceTree = "<group>"; };
 		59B1341E17D6AA7E006051B9 /* TVTopVideosTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVTopVideosTableViewCell.h; sourceTree = "<group>"; };
 		59B1341F17D6AA7E006051B9 /* TVTopVideosTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVTopVideosTableViewCell.m; sourceTree = "<group>"; };
 		59B1342817D7BAD5006051B9 /* ProximaNovaAlt-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNovaAlt-Black.otf"; sourceTree = "<group>"; };
@@ -153,6 +153,8 @@
 		59FAEE7517D925C80079419E /* playercontrol_time_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "playercontrol_time_bg@2x.png"; sourceTree = "<group>"; };
 		59FAEE7817D932BD0079419E /* close_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close_button.png; sourceTree = "<group>"; };
 		59FAEE7917D932BD0079419E /* close_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close_button@2x.png"; sourceTree = "<group>"; };
+		59FAEE7E17DE4F200079419E /* TVConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVConstants.h; sourceTree = "<group>"; };
+		59FAEE7F17DE4F200079419E /* TVConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVConstants.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,8 +201,7 @@
 		5987945817D66F1200101BE8 = {
 			isa = PBXGroup;
 			children = (
-				59B1342417D7B9FB006051B9 /* Resources */,
-				594B194D17D69A840055C5DE /* Default-568h@2x.png */,
+				59B1342417D7B9FB006051B9 /* Images */,
 				5987946A17D66F1200101BE8 /* TopVideos */,
 				5987948C17D66F1200101BE8 /* TopVideosTests */,
 				5987946317D66F1200101BE8 /* Frameworks */,
@@ -248,27 +249,16 @@
 		5987946A17D66F1200101BE8 /* TopVideos */ = {
 			isa = PBXGroup;
 			children = (
+				59FAEE7D17DE4EB40079419E /* Storyboards */,
+				59FAEE7C17DE4E8B0079419E /* Controllers */,
 				59B1342117D6B2CE006051B9 /* Views */,
 				598797D217D685D200101BE8 /* 3rd_party */,
 				5987947317D66F1200101BE8 /* TVAppDelegate.h */,
 				5987947417D66F1200101BE8 /* TVAppDelegate.m */,
-				5987947617D66F1200101BE8 /* Main_iPhone.storyboard */,
-				5987947917D66F1200101BE8 /* Main_iPad.storyboard */,
-				5987947C17D66F1200101BE8 /* TVMainViewController.h */,
-				5987947D17D66F1200101BE8 /* TVMainViewController.m */,
-				59B1341D17D6A7BD006051B9 /* TVConstants.h */,
+				59FAEE7E17DE4F200079419E /* TVConstants.h */,
+				59FAEE7F17DE4F200079419E /* TVConstants.m */,
 				5987947F17D66F1200101BE8 /* Images.xcassets */,
 				5987946B17D66F1200101BE8 /* Supporting Files */,
-				59B1343517D7F6BC006051B9 /* TVMovieContainerView.h */,
-				59B1343617D7F6BC006051B9 /* TVMovieContainerView.m */,
-				59B1343817D7FCB2006051B9 /* TVPlayerTopBarView.h */,
-				59B1343917D7FCB2006051B9 /* TVPlayerTopBarView.m */,
-				59B1343B17D7FDC9006051B9 /* TVVideoInfoOverlayView.h */,
-				59B1343C17D7FDC9006051B9 /* TVVideoInfoOverlayView.m */,
-				59B1344D17D90223006051B9 /* TVAVMoviePlayerControlView.h */,
-				59B1344E17D90223006051B9 /* TVAVMoviePlayerControlView.m */,
-				59B1345117D90606006051B9 /* TVScrubView.h */,
-				59B1345217D90606006051B9 /* TVScrubView.m */,
 			);
 			path = TopVideos;
 			sourceTree = "<group>";
@@ -322,13 +312,23 @@
 		59B1342117D6B2CE006051B9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				59B1345117D90606006051B9 /* TVScrubView.h */,
+				59B1345217D90606006051B9 /* TVScrubView.m */,
+				59B1343517D7F6BC006051B9 /* TVMovieContainerView.h */,
+				59B1343617D7F6BC006051B9 /* TVMovieContainerView.m */,
+				59B1343817D7FCB2006051B9 /* TVPlayerTopBarView.h */,
+				59B1343917D7FCB2006051B9 /* TVPlayerTopBarView.m */,
+				59B1343B17D7FDC9006051B9 /* TVVideoInfoOverlayView.h */,
+				59B1343C17D7FDC9006051B9 /* TVVideoInfoOverlayView.m */,
+				59B1344D17D90223006051B9 /* TVAVMoviePlayerControlView.h */,
+				59B1344E17D90223006051B9 /* TVAVMoviePlayerControlView.m */,
 				59B1341E17D6AA7E006051B9 /* TVTopVideosTableViewCell.h */,
 				59B1341F17D6AA7E006051B9 /* TVTopVideosTableViewCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
 		};
-		59B1342417D7B9FB006051B9 /* Resources */ = {
+		59B1342417D7B9FB006051B9 /* Images */ = {
 			isa = PBXGroup;
 			children = (
 				59FAEE7817D932BD0079419E /* close_button.png */,
@@ -345,8 +345,27 @@
 				59B1342E17D7D4B4006051B9 /* ProximaNovaAlt-Reg.otf */,
 				59B1343017D7D4C3006051B9 /* ProximaNovaAlt-Sbold.otf */,
 				59B1343217D7D4CB006051B9 /* ProximaNovaAlt-Thin.otf */,
+				594B194D17D69A840055C5DE /* Default-568h@2x.png */,
 			);
-			name = Resources;
+			name = Images;
+			sourceTree = "<group>";
+		};
+		59FAEE7C17DE4E8B0079419E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5987947C17D66F1200101BE8 /* TVMainViewController.h */,
+				5987947D17D66F1200101BE8 /* TVMainViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		59FAEE7D17DE4EB40079419E /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				5987947617D66F1200101BE8 /* Main_iPhone.storyboard */,
+				5987947917D66F1200101BE8 /* Main_iPad.storyboard */,
+			);
+			name = Storyboards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -494,6 +513,7 @@
 				59B1344F17D90223006051B9 /* TVAVMoviePlayerControlView.m in Sources */,
 				5987947E17D66F1200101BE8 /* TVMainViewController.m in Sources */,
 				59B1345317D90606006051B9 /* TVScrubView.m in Sources */,
+				59FAEE8017DE4F200079419E /* TVConstants.m in Sources */,
 				59B1343A17D7FCB2006051B9 /* TVPlayerTopBarView.m in Sources */,
 				5987947517D66F1200101BE8 /* TVAppDelegate.m in Sources */,
 				59B1343717D7F6BC006051B9 /* TVMovieContainerView.m in Sources */,

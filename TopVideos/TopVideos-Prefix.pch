@@ -13,6 +13,7 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+    #import "TVAppDelegate.h"
 #endif
 
 //notification definitions
@@ -21,5 +22,5 @@
 #define TVNotificationRemoveObserver(observer,notificationName,obj) [[NSNotificationCenter defaultCenter] removeObserver:observer name:notificationName object:obj];
 
 //APP DELEGATE
-#define APP_DELEGATE  ((AppDelegate *)[UIApplication sharedApplication].delegate)
+#define APP_DELEGATE  ((TVAppDelegate *)[UIApplication sharedApplication].delegate)
  

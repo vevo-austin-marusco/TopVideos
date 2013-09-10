@@ -8,22 +8,25 @@
 
 #import "TVTopVideosTableViewCell.h"
 
-#define TEXT_CONTAINER_BUFFER_RATIO 0.025
-#define TEXT_CONTAINER_RATIO_HEIGHT 0.25
-#define ARTIST_NAME_LABEL_RATIO_HEIGHT 0.3
-#define TOP_VIDEO_COUNT_RATIO_HEIGHT 0.15
-#define TOP_VIDEO_COUNT_RATIO_WIDTH 0.2
-#define TOP_VIDEO_COUNT_BUFFER_WIDTH_RATIO 0.07
-#define TOP_VIDEO_COUNT_BUFFER_HEIGHT_RATIO 0.01
 
+//view constants
+float const kTextContainerBufferRatio = 0.025;
+float const kTextContainerRatioHeight = 0.25;
+float const kArtistNameLabelRatioHeight = 0.3;
+float const kTopVideoCountRatioHeight = 0.15;
+float const kTopVideoCountRatioWidth = 0.2;
+float const kTopVideoCountBufferWidthRatio = 0.07;
+float const kTopVideoCountBufferHeightRatio = 0.01;
+
+//color constants
+float const kArtistNameColorR = 51/255.0f;
+float const kArtistNameColorG = 51/255.0f;
+float const kArtistNameColorB = 71/255.0f;
+float const kTitleNameColorR = 249/255.0f;
+float const kTitleNameColorG = 0/255.0f;
+float const kTitleNameColorB = 148/255.0f;
 //ARTIST_NAME_COLOR @"333347"
 //TITLE_NAME_COLOR @"f90094"
-#define ARTIST_NAME_COLOR_R 51/255.0f
-#define ARTIST_NAME_COLOR_G 51/255.0f
-#define ARTIST_NAME_COLOR_B 71/255.0f
-#define TITLE_NAME_COLOR_R 249/255.0f
-#define TITLE_NAME_COLOR_G 0/255.0f
-#define TITLE_NAME_COLOR_B 148/255.0f
 
 @implementation TVTopVideosTableViewCell
 
@@ -50,8 +53,8 @@
     self.topVideoCountLabel.backgroundColor = [UIColor clearColor];
     
     self.topVideoCountLabel.textColor = [UIColor whiteColor];
-    self.artistNameLabel.textColor = [UIColor colorWithRed:ARTIST_NAME_COLOR_R green:ARTIST_NAME_COLOR_G blue:ARTIST_NAME_COLOR_B alpha:1.0];
-    self.songTitleLabel.textColor = [UIColor colorWithRed:TITLE_NAME_COLOR_R green:TITLE_NAME_COLOR_G blue:TITLE_NAME_COLOR_B alpha:1.0];
+    self.artistNameLabel.textColor = [UIColor colorWithRed:kArtistNameColorR green:kArtistNameColorG blue:kArtistNameColorB alpha:1.0];
+    self.songTitleLabel.textColor = [UIColor colorWithRed:kTitleNameColorR green:kTitleNameColorG blue:kTitleNameColorB alpha:1.0];
     
     [self.songTitleLabel setFont:[UIFont fontWithName:@"ProximaNovaA-Black" size:22]];
     [self.artistNameLabel setFont:[UIFont fontWithName:@"ProximaNovaA-Black" size:17]];
@@ -86,23 +89,23 @@
     self.artistImageView.frame = CGRectMake(0,
                                             0,
                                             self.frame.size.width,
-                                            self.frame.size.height * (1 - TEXT_CONTAINER_RATIO_HEIGHT));
-    self.textContainerView.frame = CGRectMake(self.frame.size.height * TEXT_CONTAINER_BUFFER_RATIO,
-                                              (self.frame.size.height * (1 - TEXT_CONTAINER_RATIO_HEIGHT)) + (self.frame.size.height * TEXT_CONTAINER_BUFFER_RATIO),
-                                              self.frame.size.width - (2 * (self.frame.size.height * TEXT_CONTAINER_BUFFER_RATIO)),
-                                              self.frame.size.height * TEXT_CONTAINER_RATIO_HEIGHT - (2 * (self.frame.size.height * TEXT_CONTAINER_BUFFER_RATIO)));
+                                            self.frame.size.height * (1 - kTextContainerRatioHeight));
+    self.textContainerView.frame = CGRectMake(self.frame.size.height * kTextContainerBufferRatio,
+                                              (self.frame.size.height * (1 - kTextContainerRatioHeight)) + (self.frame.size.height * kTextContainerBufferRatio),
+                                              self.frame.size.width - (2 * (self.frame.size.height * kTextContainerBufferRatio)),
+                                              self.frame.size.height * kTextContainerRatioHeight - (2 * (self.frame.size.height * kTextContainerBufferRatio)));
     self.artistNameLabel.frame = CGRectMake(0,
                                             0,
                                             self.textContainerView.frame.size.width,
-                                            self.textContainerView.frame.size.height * ARTIST_NAME_LABEL_RATIO_HEIGHT);
+                                            self.textContainerView.frame.size.height * kArtistNameLabelRatioHeight);
     self.songTitleLabel.frame = CGRectMake(0,
-                                           self.textContainerView.frame.size.height * ARTIST_NAME_LABEL_RATIO_HEIGHT,
+                                           self.textContainerView.frame.size.height * kArtistNameLabelRatioHeight,
                                            self.textContainerView.frame.size.width,
-                                           self.textContainerView.frame.size.height * (1 - ARTIST_NAME_LABEL_RATIO_HEIGHT) - (2.5 * (self.frame.size.height * TEXT_CONTAINER_BUFFER_RATIO)));
-    self.topVideoCountLabel.frame = CGRectMake((self.frame.size.width * TOP_VIDEO_COUNT_BUFFER_WIDTH_RATIO),
-                                               (self.frame.size.height * (1 - TEXT_CONTAINER_RATIO_HEIGHT)) - (self.frame.size.height * TOP_VIDEO_COUNT_RATIO_HEIGHT) + (self.frame.size.height * TOP_VIDEO_COUNT_BUFFER_HEIGHT_RATIO),
-                                               self.frame.size.width * TOP_VIDEO_COUNT_RATIO_WIDTH,
-                                               self.frame.size.height * TOP_VIDEO_COUNT_RATIO_HEIGHT);
+                                           self.textContainerView.frame.size.height * (1 - kArtistNameLabelRatioHeight) - (2.5 * (self.frame.size.height * kTextContainerBufferRatio)));
+    self.topVideoCountLabel.frame = CGRectMake((self.frame.size.width * kTopVideoCountBufferWidthRatio),
+                                               (self.frame.size.height * (1 - kTextContainerRatioHeight)) - (self.frame.size.height * kTopVideoCountRatioHeight) + (self.frame.size.height * kTopVideoCountBufferHeightRatio),
+                                               self.frame.size.width * kTopVideoCountRatioWidth,
+                                               self.frame.size.height * kTopVideoCountRatioHeight);
     
     
 }

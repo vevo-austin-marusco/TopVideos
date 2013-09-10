@@ -10,8 +10,8 @@
 #import <QuartzCore/QuartzCore.h>
 
 
-#define DONE_BUTTON_RATIO_HEIGHT 0.75
-#define DONE_BUTTON_BUFFER_RATIO_WIDTH 0.1
+float const kDoneButtonRatioHeight      = 0.75;
+float const kDoneButtonBufferRatioWidth = 0.1;
 
 @interface TVPlayerTopBarView ()
 {
@@ -52,10 +52,10 @@
 
 - (void)layoutSubviews
 {
-    self.closeButton.frame = CGRectMake(self.frame.size.width - self.frame.size.height * DONE_BUTTON_RATIO_HEIGHT - (self.frame.size.height - self.frame.size.height * DONE_BUTTON_RATIO_HEIGHT)/2,
-                                        (self.frame.size.height - self.frame.size.height * DONE_BUTTON_RATIO_HEIGHT)/2,
-                                        self.frame.size.height * DONE_BUTTON_RATIO_HEIGHT,
-                                        self.frame.size.height * DONE_BUTTON_RATIO_HEIGHT);
+    self.closeButton.frame = CGRectMake(self.frame.size.width - self.frame.size.height * kDoneButtonRatioHeight - (self.frame.size.height - self.frame.size.height * kDoneButtonRatioHeight)/2,
+                                        (self.frame.size.height - self.frame.size.height * kDoneButtonRatioHeight)/2,
+                                        self.frame.size.height * kDoneButtonRatioHeight,
+                                        self.frame.size.height * kDoneButtonRatioHeight);
 }
 
 #pragma mark -

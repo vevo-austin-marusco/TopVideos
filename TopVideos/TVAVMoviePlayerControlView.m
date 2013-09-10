@@ -429,8 +429,10 @@
 - (void)togglePlayPause:(id)sender {
 	if ( [self.player isPlaying] ) {
 		[self.player pausePlayer];
+        [self showPlayButton];
 	} else {
 		[self.player startPlayer];
+        [self showStopButton];
 	}
 }
 

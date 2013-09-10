@@ -1,15 +1,13 @@
 //
-//  TVConstants.h
+//  Constants.h
 //  TopVideos
 //
-//  Created by New Admin User on 9/3/13.
+//  Created by New Admin User on 9/9/13.
 //  Copyright (c) 2013 Vevo. All rights reserved.
 //
 
-#ifndef TopVideos_VMConstants_h
-#define TopVideos_VMConstants_h
 
-#endif
+/* Load videos count */
+extern int const kTopVideosLoadCount;
 
-
-#define TOP_VIDEOS_LOAD_COUNT 40
+#define GENRE_ORDER_ARRAY [NSArray arrayWithObjects: @"top_40_all",@"music_map",@"pop",@"alternative_rock",@"hip-hop_rap",@"r&b_soul",@"electronic",@"country",nil]

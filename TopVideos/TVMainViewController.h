@@ -8,11 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TVMainViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>{
-    NSMutableDictionary *topVideos;
-    bool playingAds;
-}
+@interface TVMainViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UIGestureRecognizerDelegate>
 
 @property (nonatomic,retain) UITableView *tableView;
+@property (nonatomic,retain) UIScrollView *genresView;
 
 @end

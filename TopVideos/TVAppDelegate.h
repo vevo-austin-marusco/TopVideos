@@ -10,6 +10,8 @@
 
 @interface TVAppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
+@property (nonatomic, strong) UIWindow *window;
+@property (nonatomic, strong) NSMutableArray *genres;
+@property (nonatomic, strong) NSMutableArray *genreData;
 
 @end

@@ -12,9 +12,23 @@
 
 @implementation TVAppDelegate
 
+@synthesize genres = _genres;
+@synthesize genreData = _genreData;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    //initiate the genres array
+    //TO-DO cache the genres array
+    self.genres = [NSMutableArray arrayWithObjects: @"top_40_all",@"music_map",@"pop",@"alternative_rock",@"hip-hop_rap",@"r&b_soul",@"electronic",@"country",nil];
+    self.genreData = [[NSMutableArray alloc] initWithObjects:[[NSArray alloc] init],
+                      [[NSArray alloc] init],
+                      [[NSArray alloc] init],
+                      [[NSArray alloc] init],
+                      [[NSArray alloc] init],
+                      [[NSArray alloc] init],
+                      [[NSArray alloc] init],
+                      [[NSArray alloc] init],nil];
+    
     // Override point for customization after application launch.
     return YES;
 }
