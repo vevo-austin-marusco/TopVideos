@@ -13,6 +13,7 @@
 #import "TVPlayerTopBarView.h"
 #import "TVVideoInfoOverlayView.h"
 #import "TVAVMoviePlayerControlView.h"
+#import "TVMainViewController.h"
 
 enum {
     kTagVideosTableCellImageView = 2000,

@@ -148,7 +148,7 @@ float const kSelectedGenreColorB = 235/255.0f;
         }
         
         //set the text to the appropriate value w/ offset
-        genreLabel.text = [APP_DELEGATE.genres objectAtIndex:i];
+        genreLabel.text = [self converKeyToValueForGenres:[APP_DELEGATE.genres objectAtIndex:i]];
         genreLabel.tag = i + 1;
         
         [self.genresView addSubview:genreLabel];
@@ -385,6 +385,34 @@ float const kSelectedGenreColorB = 235/255.0f;
     return [APP_DELEGATE.genres objectAtIndex:index];
 }
 
+- (NSString *)converKeyToValueForGenres:(NSString *)key
+{
+    //@"top_40_all",@"pop",@"rbsoul",@"latino",@"metal",@"country",@"electronicdance"
+    if([key isEqualToString:@"top_40_all"]){
+        return @"Top 40";
+    }
+    else if([key isEqualToString:@"pop"]){
+        return @"Pop";
+    }
+    else if([key isEqualToString:@"rbsoul"]){
+        return @"R&B Soul";
+    }
+    else if([key isEqualToString:@"latino"]){
+        return @"Latino";
+    }
+    else if([key isEqualToString:@"metal"]){
+        return @"Metal";
+    }
+    else if([key isEqualToString:@"country"]){
+        return @"Country";
+    }
+    else if([key isEqualToString:@"electronicdance"]){
+        return @"Electronic Dance";
+    }
+    
+    return @"";
+}
+
 #pragma mark - ads
 - (void)startedPlayingAds
 {
@@ -413,7 +441,7 @@ float const kSelectedGenreColorB = 235/255.0f;
             self.page = page;
             
               //scroll the view
-             [self.topVideosScrollView scrollRectToVisible:CGRectMake((scrollView.frame.size.width * self.page),
+             [scrollView scrollRectToVisible:CGRectMake((scrollView.frame.size.width * self.page),
                                                                       0,
                                                                       scrollView.frame.size.width,
                                                                       scrollView.frame.size.height) animated:YES];
@@ -449,19 +477,6 @@ float const kSelectedGenreColorB = 235/255.0f;
         }
     }
     
-}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    NSLog(@"begin");
-    UITableView *tableView = (UITableView *)[self.topVideosScrollView viewWithTag:[self getCurrentGenreIndex] + 1];
-    [tableView setUserInteractionEnabled:NO];
-}
-
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
-{
-    NSLog(@"end");
-    UITableView *tableView = (UITableView *)[self.topVideosScrollView viewWithTag:[self getCurrentGenreIndex] + 1];
-    [tableView setUserInteractionEnabled:YES];
 }
 
 @end

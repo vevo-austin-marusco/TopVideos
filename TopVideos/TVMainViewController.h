@@ -13,4 +13,6 @@
 @property (nonatomic,retain) UIScrollView *genresView;
 @property (nonatomic,retain) UIScrollView *topVideosScrollView;
 
+- (void)removeVideoPlayer;
+
 @end

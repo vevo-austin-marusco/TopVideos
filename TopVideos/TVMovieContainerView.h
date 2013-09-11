@@ -13,7 +13,7 @@
 
 @property(nonatomic, strong) VMMoviePlayerController *vodPlayer;
 @property(nonatomic) int currentRanking;
-@property(nonatomic,retain) NSObject *delegateObject;
+@property(nonatomic, weak) NSObject *delegateObject;
 
 - (void)playVideo:(VMVideo *)sourceVideo;
 - (void)stopVideo;
