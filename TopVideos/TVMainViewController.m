@@ -146,7 +146,7 @@ float const kSelectedGenreColorB = 235/255.0f;
                                                                         0,
                                                                         self.view.frame.size.width/4,
                                                                         [[UIScreen mainScreen]bounds].size.height * kTableViewSectionHeightRatio)];
-        genreLabel.font = [UIFont fontWithName:@"ProximaNovaA-Bold" size:10];
+        genreLabel.font = [UIFont fontWithName:@"ProximaNovaA-Bold" size:13];
         genreLabel.textAlignment = NSTextAlignmentCenter;
         
         //set the middle label to a difference color
