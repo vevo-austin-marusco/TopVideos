@@ -16,7 +16,7 @@ float const kArtistNameLabelRatioHeight = 0.3;
 float const kTopVideoCountRatioHeight = 0.15;
 float const kTopVideoCountRatioWidth = 0.2;
 float const kTopVideoCountBufferWidthRatio = 0.07;
-float const kTopVideoCountBufferHeightRatio = 0.01;
+float const kTopVideoCountBufferHeightRatio = 0.02;
 
 //color constants
 float const kArtistNameColorR = 51/255.0f;
@@ -25,8 +25,6 @@ float const kArtistNameColorB = 71/255.0f;
 float const kTitleNameColorR = 249/255.0f;
 float const kTitleNameColorG = 0/255.0f;
 float const kTitleNameColorB = 148/255.0f;
-//ARTIST_NAME_COLOR @"333347"
-//TITLE_NAME_COLOR @"f90094"
 
 @implementation TVTopVideosTableViewCell
 
