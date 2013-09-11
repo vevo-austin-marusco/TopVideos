@@ -201,7 +201,6 @@ float const kSelectedGenreColorB = 235/255.0f;
     if(cell == nil){
         cell = [[TVTopVideosTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        [cell setUserInteractionEnabled:NO];
         [cell setMultipleTouchEnabled:NO];
         [cell setExclusiveTouch:YES];
     }
