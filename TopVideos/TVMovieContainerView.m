@@ -10,10 +10,8 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <VevoSDK/VMConstants.h>
 #import <VevoSDK/VMPlayerOverlayObject.h>
-#import "TVPlayerTopBarView.h"
-#import "TVVideoInfoOverlayView.h"
-#import "TVAVMoviePlayerControlView.h"
 #import "TVMainViewController.h"
+#import "TVPlayerTopBarView.h"
 
 enum {
     kTagVideosTableCellImageView = 2000,
@@ -27,6 +25,9 @@ enum {
     kTagCreditsView
 };
 
+#define MOVIEPLAYER_VERTICAL_HEIGHT_PAD     460
+#define MOVIEPLAYER_VERTICAL_HEIGHT_PHONE   192
+
 
 @interface TVMovieContainerView ()
 {
@@ -35,13 +36,13 @@ enum {
 }
 
 @property (nonatomic, strong) VMVideo *video;
-@property (nonatomic, strong) UIView *portraitInfoView;
-@property (nonatomic, strong) UIView *playerContainerView;
 @property (nonatomic, strong) NSString *headerTitle;
 
 @end
 
 @implementation TVMovieContainerView
+
+@synthesize playerContainerView = _playerContainerView;
 
 - (id)initWithFrame:(CGRect)frame DelegateObject:(NSObject *)inputDelegateObject
 {
@@ -60,9 +61,8 @@ enum {
     [self setupPlayerContainerView];
     
     self.vodPlayer = [[VMMoviePlayerController alloc] initWithBaseView:self.playerContainerView];
-    self.vodPlayer.controlStyle = VMMovieControlStyleNone;
+    self.vodPlayer.controlStyle = VMMovieControlStyleFullscreen;
     self.vodPlayer.containerDelegate = self;
-    //_vodPlayer.disableContinuousPlay = YES;
     
     [self.vodPlayer playVideo:self.video];
 }
@@ -127,42 +127,97 @@ enum {
 
 - (void) moviePlayerDidStop
 {
-    //insert code to handle movie player stopping
+
+
 }
+- (void)onInfoButtonTapped:(id)sender
+{}
+- (void)onAddButtonTapped:(id)sender
+{}
+- (void)onShareButtonTapped:(id)sender
+{}
+- (void)onBuyButtonTapped:(id)sender
+{}
 
 #pragma mark VMMoviePlayerContainerDelegate Methods
-
-- (void) movieplayerReadyToPlayVideo
-{
-    TVPlayerTopBarView *topBar = [[TVPlayerTopBarView alloc] initWithFrame:CGRectMake(0, 0, self.playerContainerView.bounds.size.width, 40) Container:self];
-    TVAVMoviePlayerControlView *moviePlayerControlView = [[TVAVMoviePlayerControlView alloc] initWithFrame:self.playerContainerView.bounds];
-    
-    moviePlayerControlView.player = self.vodPlayer;
+- (void) movieplayerReadyToPlayVideo{
+    TVPlayerTopBarView *topBar = [[TVPlayerTopBarView alloc] initWithFrame:CGRectMake(0, 0, self.playerContainerView.bounds.size.width, 40)];
     topBar.video = self.video;
-    
-    [self.vodPlayer showOverlay:moviePlayerControlView];
-    [self.vodPlayer showOverlay:topBar];
-    
+    [_vodPlayer showOverlay:topBar];
 }
 
 - (void) moviePlayerEnterFullScreen
 {
-    // When the cell is touched, it should faint.
-    [UIView animateWithDuration:.5 animations:^{
-        self.playerContainerView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-    }completion:^(BOOL finished){
-    }];
+    [((TVMainViewController *)self.delegateObject) moviePlayerEnterFullScreen];
+}
+
+- (void) movieplayerExpandButtonPressed{
+    [self moviePlayerEnterFullScreen];
+}
+
+- (void) onFullScreenTapped
+{
+    if ([self respondsToSelector:@selector(moviePlayerEnterFullScreen)]) {
+        [self moviePlayerEnterFullScreen];
+    }
+}
+
+//loads movie at selected index
+- (void) moviePlayerStartPlayRecommendationAt:(int)index
+{
+    [(TVMainViewController *)self.delegateObject moviePlayerStartPlayRecommendationAt:index];
 }
 
 - (void) moviePlayerStartPlayingAds{
     //Freeze recommendation table when playing ads
-    //[self.delegateObject performSelector:@selector(startedPlayingAds) withObject:nil];
+    [self.delegateObject performSelector:@selector(startedPlayingAds) withObject:nil];
 }
 - (void) moviePlayerEndPlayingAds{
     //Re-enable recommendation table after playing ads
-    //[self.delegateObject performSelector:@selector(stoppedPlayingAds) withObject:nil];
+    [self.delegateObject performSelector:@selector(stoppedPlayingAds) withObject:nil];
 }
 
+#pragma mark UIView rotation Methods
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
+    
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return YES;
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [((UIViewController *)self.delegateObject) willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+   // [((UIViewController *)self.delegateObject) willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
+        
+        NSLog(@" to landscape _View=%@ baseview=%@", self, _playerContainerView);
+        _playerContainerView.frame = self.bounds; // CGRectMake(0, 0, 1024, 720);
+        _vodPlayer.baseView = _playerContainerView;
+        
+    }else{
+        int moviePlayerVerticalHeight;
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+            moviePlayerVerticalHeight = MOVIEPLAYER_VERTICAL_HEIGHT_PHONE;
+        else
+            moviePlayerVerticalHeight = MOVIEPLAYER_VERTICAL_HEIGHT_PAD;
+        
+        _playerContainerView.frame = CGRectMake(0, 0, MIN(self.bounds.size.width, self.bounds.size.height), moviePlayerVerticalHeight);
+        _vodPlayer.baseView = _playerContainerView;    
+        
+        }
+         
+        
+    
+}
 
 
 @end

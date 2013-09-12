@@ -13,6 +13,11 @@
 @property (nonatomic,retain) UIScrollView *genresView;
 @property (nonatomic,retain) UIScrollView *topVideosScrollView;
 
+
 - (void)removeVideoPlayer;
+- (void)startedPlayingAds;
+- (void)stoppedPlayingAds;
+- (void)moviePlayerStartPlayRecommendationAt:(int)index;
+- (void)moviePlayerEnterFullScreen;
 
 @end
