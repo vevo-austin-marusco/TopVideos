@@ -2,7 +2,7 @@
 //  VMTopVideosTableViewCell.h
 //  TopVideos
 //
-//  Created by New Admin User on 9/3/13.
+//  Created by Austin Marusco.
 //  Copyright (c) 2013 Vevo. All rights reserved.
 //
 

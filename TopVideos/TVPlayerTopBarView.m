@@ -1,19 +1,15 @@
 //
-//  PlayerTopBarView.m
-//  ExampleUseVevoSDK
+//  TVPlayerTopBarView.m
+//  TopVideos
 //
-//  Created by Harry Xu on 7/15/13.
+//  Created by Austin Marusco.
 //  Copyright (c) 2013 Vevo. All rights reserved.
 //
 
 #import "TVPlayerTopBarView.h"
 #import <QuartzCore/QuartzCore.h>
-#import "TVMovieContainerView.h"
-@interface TVPlayerTopBarView ()
-{
-    
-}
-@property (nonatomic, weak) TVMovieContainerView  *container;
+@interface TVPlayerTopBarView (){}
+@property (nonatomic, weak) UIView  *container;
 @property (nonatomic, readwrite) BOOL isOnScreen;
 
 @end
@@ -51,45 +47,6 @@
         [_closeButton addTarget:self.container action:@selector(onCloseButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         _closeButton.autoresizingMask =  UIViewAutoresizingFlexibleLeftMargin;
         [self addSubview:_closeButton];
-        
-      /*  self.shareButton = [self buttonWith1PixelImage:nil
-                                                        title:@"Share"
-                                              foregroundImage:[UIImage imageNamed:@"VevoSDKResources.bundle/VMMoviePlayer/images/player_share_icon_pad.png"]
-                                                         font:headerFont
-                                                    textColor:headerFontColor
-                                                 cornerRadius:5
-                                                     maxWidth:120 minWidth:minWidth maxHeight:40 imageTextSpace:10];
-        _shareButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-        [_shareButton addTarget:self.container action:@selector(onShareButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:_shareButton];
-        
-        
-        
-        self.infoButton = [self buttonWith1PixelImage:nil
-                                                       title:@"Info"
-                                             foregroundImage:[UIImage imageNamed:@"VevoSDKResources.bundle/VMMoviePlayer/images/player_info_icon_pad.png"]
-                                                        font:headerFont
-                                                   textColor:headerFontColor
-                                                cornerRadius:5
-                                                    maxWidth:120 minWidth:minWidth maxHeight:40 imageTextSpace:10];
-        _infoButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
-        [_infoButton addTarget:self.container action:@selector(onInfoButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-        _infoButton.hidden = YES;
-        [self addSubview:_infoButton];
-        
-        self.buyButton = [self buttonWith1PixelImage:nil
-                                                      title:@"Buy"
-                                            foregroundImage:[UIImage imageNamed:@"VevoSDKResources.bundle/VMMoviePlayer/images/player_buy_icon_pad.png"]
-                                                       font:headerFont
-                                                  textColor:headerFontColor
-                                               cornerRadius:5
-                                                   maxWidth:120 minWidth:minWidth maxHeight:40 imageTextSpace:10];
-        _buyButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-        [_buyButton addTarget:self.container action:@selector(onBuyButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-        _buyButton.hidden = YES;
-        [self addSubview:_buyButton];
-       */
-        
     }
     return self;
 }
@@ -185,7 +142,6 @@
     return VMOverlayTypeVideo;
 }
 
-#pragma mark -
 #pragma mark Helper Methods
 - (UIButton *)buttonWith1PixelImage:(UIImage *)pixelImage title:(NSString *)title foregroundImage:(UIImage *)foregroundImage font:(UIFont *)font textColor:(UIColor *)textColor cornerRadius:(CGFloat)cornerRadius maxWidth:(CGFloat)maxWidth minWidth:(CGFloat)minWidth maxHeight:(CGFloat)maxHeight imageTextSpace:(CGFloat)space
 {

@@ -2,7 +2,7 @@
 //  VMTopVideosTableViewCell.m
 //  TopVideos
 //
-//  Created by New Admin User on 9/3/13.
+//  Created by Austin Marusco.
 //  Copyright (c) 2013 Vevo. All rights reserved.
 //
 
@@ -78,7 +78,6 @@ float const kTitleNameColorB = 148/255.0f;
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-
     // Configure the view for the selected state
 }
 

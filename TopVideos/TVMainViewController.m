@@ -1,8 +1,8 @@
 //
-//  VMViewController.m
+//  TVViewController.m
 //  TopVideos
 //
-//  Created by New Admin User on 9/3/13.
+//  Created by Austin Marusco on 9/3/13.
 //  Copyright (c) 2013 Vevo. All rights reserved.
 //
 
@@ -14,17 +14,9 @@
 #import "TVConstants.h"
 #import "TVTopVideosTableViewCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
-#import "TVMovieContainerView.h"
-
-
-typedef enum ScrollDirection {
-    ScrollDirectionNone,
-    ScrollDirectionRight,
-    ScrollDirectionLeft,
-    ScrollDirectionUp,
-    ScrollDirectionDown,
-    ScrollDirectionCrazy,
-} ScrollDirection;
+#import <VevoSDK/VMConstants.h>
+#import <VevoSDK/VMPlayerOverlayObject.h>
+#import "TVPlayerTopBarView.h"
 
 //view constants
 float const kTableViewCellHeightRatio       = 0.5;
@@ -36,22 +28,26 @@ float const kSelectedGenreColorR = 3/255.0f;
 float const kSelectedGenreColorG = 207/255.0f;
 float const kSelectedGenreColorB = 235/255.0f;
 
-#define MOVIEPLAYER_VERTICAL_HEIGHT_PAD     460
-#define MOVIEPLAYER_VERTICAL_HEIGHT_PHONE   192
-
-@interface TVMainViewController ()
+@interface TVMainViewController (){}
 
 @property (nonatomic) int page;
-@property (nonatomic, retain) TVMovieContainerView *movieContainerView;
-@property (nonatomic, retain) NSString *selectedGenre;
-@property (nonatomic) int lastContentOffset;
-@property (nonatomic) bool *playingAds;
+@property (nonatomic) bool playingAds;
+@property (nonatomic, strong) VMVideo *video;
 
+//scroll views
+@property (nonatomic,retain) UIScrollView *genresView;
+@property (nonatomic,retain) UIScrollView *topVideosScrollView;
+
+//movie player
+@property (nonatomic, strong) VMMoviePlayerController *vodPlayer;
+@property (nonatomic, strong) UIView *playerContainerViewBackground;
+@property (nonatomic, strong) UIView *playerContainerView;
 
 @end
 
-
 @implementation TVMainViewController
+
+@synthesize playerContainerView = _playerContainerView;
 
 - (void)viewDidLoad
 {
@@ -60,10 +56,10 @@ float const kSelectedGenreColorB = 235/255.0f;
     //add notifications
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appOpened) name:@"APP_OPENED" object:nil];
     
-    //set controller's init variables
+    //set controller's initial variables
     self.playingAds = NO;
     self.page = 0;
-    self.selectedGenre = @"top_40_all";
+
     
     //hide status bar
     if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
@@ -75,7 +71,9 @@ float const kSelectedGenreColorB = 235/255.0f;
         [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
     }
     
-    //setup scrollview
+    /*
+     setup scrollview
+    */
     self.topVideosScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,
                                                                              [[UIScreen mainScreen]bounds].size.height * kTableViewSectionHeightRatio,
                                                                               self.view.frame.size.width,
@@ -86,10 +84,10 @@ float const kSelectedGenreColorB = 235/255.0f;
     self.topVideosScrollView.delegate = self;
     self.topVideosScrollView.contentSize = CGSizeMake([[UIScreen mainScreen]bounds].size.width * [APP_DELEGATE.genres count],
                                                       [[UIScreen mainScreen]bounds].size.height - ([[UIScreen mainScreen]bounds].size.height * kTableViewSectionHeightRatio));
-    [self.topVideosScrollView setShowsVerticalScrollIndicator:NO];
-    [self.topVideosScrollView setShowsHorizontalScrollIndicator:NO];
+    self.topVideosScrollView.showsHorizontalScrollIndicator = NO;
+    self.topVideosScrollView.showsVerticalScrollIndicator = NO;
     self.topVideosScrollView.bounces = NO;
-    [self.topVideosScrollView setDirectionalLockEnabled:NO];
+    self.topVideosScrollView.directionalLockEnabled = NO;
     
     //setup all the scroll view pages
     for(int i = 0; i < [APP_DELEGATE.genres count]; i++){
@@ -101,10 +99,10 @@ float const kSelectedGenreColorB = 235/255.0f;
                                                                         self.view.frame.size.height - [[UIScreen mainScreen]bounds].size.height * kTableViewSectionHeightRatio)];
         genreTableView.delegate = self;
         genreTableView.dataSource = self;
-        [genreTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-        [genreTableView setBounces:YES];
-        [genreTableView setClipsToBounds:YES];
-        [genreTableView setDirectionalLockEnabled:NO];
+        genreTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        genreTableView.bounces = YES;
+        genreTableView.clipsToBounds = YES;
+        genreTableView.directionalLockEnabled = NO;
         //add 1 to tag becuase '0' is always the superview
         genreTableView.tag = i + 1;
         
@@ -116,8 +114,9 @@ float const kSelectedGenreColorB = 235/255.0f;
     frame.origin.x = frame.size.width * self.page;
     [self.topVideosScrollView scrollRectToVisible:frame animated:NO];
     
-    
-    //setup genre scroll view
+    /*
+     setup genre scroll view
+    */
     self.genresView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,
                                                                       0,
                                                                       self.view.frame.size.width,
@@ -169,7 +168,7 @@ float const kSelectedGenreColorB = 235/255.0f;
         [self.genresView addSubview:genreLabel];
     }
     
-    //add subviews
+    //add subviews to main view
     [self.view addSubview:self.genresView];
     [self.view addSubview:self.topVideosScrollView];
 }
@@ -187,7 +186,6 @@ float const kSelectedGenreColorB = 235/255.0f;
 }
 
 #pragma mark - table view delegate
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return kTopVideosLoadCount;
@@ -205,12 +203,9 @@ float const kSelectedGenreColorB = 235/255.0f;
     
     if(cell == nil){
         cell = [[TVTopVideosTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        [cell setMultipleTouchEnabled:NO];
-        [cell setExclusiveTouch:YES];
+        [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
     }
-    
-
     
     //if there are values in the array, load into tableview
     if([[APP_DELEGATE.genreData objectAtIndex:self.page] count] > 0){
@@ -237,11 +232,7 @@ float const kSelectedGenreColorB = 235/255.0f;
 #pragma mark - play video
 - (void)insertVideoPlayerWithVideo:(VMVideo *)video
 {
-    self.movieContainerView = [[TVMovieContainerView alloc] initWithFrame:CGRectMake(0,
-                                                                                                      -(self.view.frame.size.height * kVideoViewHeightRatio),
-                                                                                                      self.view.frame.size.width,
-                                                                                                      self.view.frame.size.height * kVideoViewHeightRatio) DelegateObject:self];
-    [self.view addSubview:self.movieContainerView];
+    [self setupPlayerContainer];
     
     //add the video player view w/ animation
     [UIView animateWithDuration:0.4
@@ -250,10 +241,14 @@ float const kSelectedGenreColorB = 235/255.0f;
                      animations:^{
                          
                          //shift the view frames
-                         self.movieContainerView.frame = CGRectMake(0,
+                         self.playerContainerView.frame = CGRectMake(0,
                                                                     0,
                                                                       self.view.frame.size.width,
                                                                       self.view.frame.size.height * kVideoViewHeightRatio);
+                         self.playerContainerViewBackground.frame = CGRectMake(0,
+                                                                     0,
+                                                                     self.view.frame.size.width,
+                                                                     self.view.frame.size.height * kVideoViewHeightRatio);
                          
                          self.genresView.frame = CGRectMake(0,
                                                             (self.view.frame.size.height * kVideoViewHeightRatio),
@@ -269,11 +264,10 @@ float const kSelectedGenreColorB = 235/255.0f;
                          //set the content size
                          self.topVideosScrollView.contentSize = CGSizeMake(self.view.frame.size.width * [APP_DELEGATE.genres count],
                                                                            self.view.frame.size.height - (self.view.frame.size.height * kTableViewSectionHeightRatio) - (self.view.frame.size.height * kVideoViewHeightRatio));
-                         
                      }];
     
     
-    [self.movieContainerView playVideo:video];
+    [self playVideo:video];
 }
 - (void)removeVideoPlayer
 {
@@ -293,15 +287,19 @@ float const kSelectedGenreColorB = 235/255.0f;
                                                            0,
                                                            self.view.frame.size.width,
                                                            self.view.frame.size.height * kTableViewSectionHeightRatio);
-                         self.movieContainerView.frame = CGRectMake(0,
+                         self.playerContainerView.frame = CGRectMake(0,
                                                                     -(self.view.frame.size.height * kVideoViewHeightRatio),
                                                                     self.view.frame.size.width,
                                                                     self.view.frame.size.height * kVideoViewHeightRatio);
+                         self.playerContainerViewBackground.frame = CGRectMake(0,
+                                                                     -(self.view.frame.size.height * kVideoViewHeightRatio),
+                                                                     self.view.frame.size.width,
+                                                                     self.view.frame.size.height * kVideoViewHeightRatio);
                      }
                      completion:^(BOOL finished){
                          //find the TVMovieContainerView and remove it
                          for(UIView *object in self.view.subviews){
-                             if([object class] == [TVMovieContainerView class]){
+                             if(object.tag == 1){
                                  [object removeFromSuperview];
                              }
                          }
@@ -315,29 +313,31 @@ float const kSelectedGenreColorB = 235/255.0f;
 -(void)moviePlayerEnterFullScreen
 {
     // When the cell is touched, it should faint.
-    [UIView animateWithDuration:.5 animations:^{
+    [UIView animateWithDuration:.4 animations:^{
         
         //if the player is in the center of the screen, take the view out of full screen mode
-        if(self.movieContainerView.frame.size.width == [[UIScreen mainScreen]bounds].size.width && self.movieContainerView.frame.size.height == [[UIScreen mainScreen]bounds].size.height){
-       //     self.playerContainerView.center = CGPointMake([[UIScreen mainScreen]bounds].size.width/2, [[UIScreen mainScreen]bounds].size.height/2);
-       //     self.frame = [[UIScreen mainScreen] bounds];
-            self.movieContainerView.frame = CGRectMake(0,
-                                                       0,
-                                                       self.view.frame.size.width,
-                                                       self.view.frame.size.height * kVideoViewHeightRatio);
-            self.movieContainerView.playerContainerView.frame = CGRectMake(0,
-                                                           0,
-                                                           self.view.frame.size.width,
-                                                           self.view.frame.size.height * kVideoViewHeightRatio);
+        if(self.playerContainerViewBackground.frame.size.width == [[UIScreen mainScreen]bounds].size.width && self.playerContainerViewBackground.frame.size.height == [[UIScreen mainScreen]bounds].size.height){
+            self.playerContainerView.frame = CGRectMake(0,
+                                                        0,
+                                                        self.view.frame.size.width,
+                                                        self.view.frame.size.height * kVideoViewHeightRatio);
+            self.playerContainerViewBackground.frame = CGRectMake(0,
+                                                                  0,
+                                                                  self.view.frame.size.width,
+                                                                  self.view.frame.size.height * kVideoViewHeightRatio);
         }
+        //if the player is not in full screen mode, make full screen
         else{
-            self.movieContainerView.playerContainerView.center = CGPointMake([[UIScreen mainScreen]bounds].size.width/2, [[UIScreen mainScreen]bounds].size.height/2);
-            self.movieContainerView.frame = [[UIScreen mainScreen] bounds];
+            self.playerContainerView.center = CGPointMake([[UIScreen mainScreen]bounds].size.width/2, [[UIScreen mainScreen]bounds].size.height/2);
+            self.playerContainerViewBackground.frame = CGRectMake(0,
+                                                        0,
+                                                        self.view.frame.size.width,
+                                                        self.view.frame.size.height);
+            
         }
         
         
-    }completion:^(BOOL finished){
-    }];
+    }completion:^(BOOL finished){}];
 }
 
 #pragma mark - genre views
@@ -345,8 +345,6 @@ float const kSelectedGenreColorB = 235/255.0f;
     //get list of videos from server and reload tableview when finished
     [[VMApiFacade sharedInstance] getTopVideosForOrder:@"" genre:[APP_DELEGATE.genres objectAtIndex:self.page] offset:0 limit:kTopVideosLoadCount
                                           successBlock:^(id results){
-                                              
-                                              //    NSLog(@"%@",results);
                                               
                                               //set top videos dictionary and reload data
                                               [APP_DELEGATE.genreData replaceObjectAtIndex:genreIndex withObject:results];
@@ -375,10 +373,9 @@ float const kSelectedGenreColorB = 235/255.0f;
 
 #pragma mark - other
 - (void)appOpened{
+    //reload current page data
     [self reloadSelectedTableViewWithCurrentGenreIndex:self.page];
 }
-
-
 
 // used for status bar preferrences
 - (BOOL)prefersStatusBarHidden
@@ -386,10 +383,8 @@ float const kSelectedGenreColorB = 235/255.0f;
     return YES;
 }
 
-
 - (NSString *)converKeyToValueForGenres:(NSString *)key
 {
-    //@"top_40_all",@"pop",@"rbsoul",@"latino",@"metal",@"country",@"electronicdance"
     if([key isEqualToString:@"top_40_all"]){
         return @"Top 40";
     }
@@ -417,7 +412,6 @@ float const kSelectedGenreColorB = 235/255.0f;
 
 - (void) moviePlayerStartPlayRecommendationAt:(int)index
 {
-    
     //if the app is not playing adds, allow user to select
     if(!self.playingAds){
         
@@ -436,19 +430,10 @@ float const kSelectedGenreColorB = 235/255.0f;
                     //valid video case
                     if (video) {
                         
-                        bool movieViewInController = NO;
-                        
-                        //check to see if the movieView is on the screen
-                        for(UIView *object in self.view.subviews){
-                            if([object class] == [TVMovieContainerView class]){
-                                movieViewInController = YES;
-                            }
-                        }
-                        
                         //if the view is on screen, play video
-                        if(movieViewInController){
-                            [self.movieContainerView stopVideo];
-                            [self.movieContainerView playVideo:video];
+                        if([self moviePLayerOnScreen]){
+                            [self stopVideo];
+                            [self playVideo:video];
                         }
                         //if the view is not on screen, insert the view
                         else{
@@ -457,13 +442,24 @@ float const kSelectedGenreColorB = 235/255.0f;
                     }
                 }
             }
-                                          errorBlock:^(NSError *error){
-                                              NSLog(@"failure %@",error);
-                                          }];
+              errorBlock:^(NSError *error){
+                  NSLog(@"failure %@",error);
+              }];
         }
-        
+    }
+}
+
+//returns true if the movie player is on screen
+- (bool)moviePLayerOnScreen
+{
+    //check to see if the movieView is on the screen
+    for(UIView *object in self.view.subviews){
+        if(object.tag == 1){
+            return YES;
+        }
     }
     
+    return NO;
 }
 
 #pragma mark - ads
@@ -481,12 +477,11 @@ float const kSelectedGenreColorB = 235/255.0f;
 
 #pragma mark - scroll view
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
     // Update the page when more than 50% of the previous/next page is visible
     if([scrollView class] != [UITableView class]){
         CGFloat pageWidth = scrollView.frame.size.width;
         int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-        
-        //NSLog(@"page:%d, oldPage:%d",page,self.page);
     
             //if the page has changed, move the scroll view and set page variable
             if(page != self.page){
@@ -497,9 +492,6 @@ float const kSelectedGenreColorB = 235/255.0f;
                                                                           0,
                                                                           scrollView.frame.size.width,
                                                                           scrollView.frame.size.height) animated:YES];
-                
-                //load new genre
-                self.selectedGenre = [APP_DELEGATE.genres objectAtIndex:self.page];
                 
                 //reload selected table view
                 [self reloadSelectedTableViewWithCurrentGenreIndex:self.page];
@@ -556,6 +548,7 @@ float const kSelectedGenreColorB = 235/255.0f;
         [spinner startAnimating];
     }
 }
+
 //remove the activity indicator from the view
 - (void)removeActivityIndicatorFomView:(UIView *)view
 {
@@ -575,7 +568,7 @@ float const kSelectedGenreColorB = 235/255.0f;
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return YES;
+    return NO;
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
@@ -587,31 +580,100 @@ float const kSelectedGenreColorB = 235/255.0f;
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
     [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    //[self adjustContentsLayout];
+
     if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
         
-        NSLog(@" to landscape _View=%@ baseview=%@", self.view, self.movieContainerView.playerContainerView);
-        self.movieContainerView.playerContainerView.frame =  CGRectMake(0, 0, MAX(self.view.bounds.size.width, self.view.bounds.size.height), MIN(self.view.bounds.size.width, self.view.bounds.size.height)); // self.view.bounds; // CGRectMake(0, 0, 1024, 720);
-        self.movieContainerView.frame = CGRectMake(0, 0, MAX(self.view.bounds.size.width, self.view.bounds.size.height), MIN(self.view.bounds.size.width, self.view.bounds.size.height) );
-        self.movieContainerView.vodPlayer.baseView = self.movieContainerView.playerContainerView;
-        
+        if([self moviePLayerOnScreen]){
+            self.playerContainerView.frame =  CGRectMake(0,
+                                                         0,
+                                                         MAX(self.view.bounds.size.width, self.view.bounds.size.height),
+                                                         MIN(self.view.bounds.size.width, self.view.bounds.size.height));
+            self.playerContainerViewBackground.frame = CGRectMake(0,
+                                                                  0,
+                                                                  MAX(self.view.bounds.size.width, self.view.bounds.size.height),
+                                                                  MIN(self.view.bounds.size.width, self.view.bounds.size.height));
+            self.vodPlayer.baseView = self.playerContainerView;
+        }
     }else{
-        int moviePlayerVerticalHeight;
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
-            moviePlayerVerticalHeight = MOVIEPLAYER_VERTICAL_HEIGHT_PHONE;
-        else
-            moviePlayerVerticalHeight = MOVIEPLAYER_VERTICAL_HEIGHT_PAD;
-
-        self.movieContainerView.playerContainerView.frame = CGRectMake(0,
-                                                                       0,
-                                                                       MIN(self.view.bounds.size.width, self.view.bounds.size.height),
-                                                                       MAX(self.view.bounds.size.width, self.view.bounds.size.height) * kVideoViewHeightRatio);
-        self.movieContainerView.frame = CGRectMake(0,
-                                                   0,
-                                                   MIN(self.view.bounds.size.width,self.view.bounds.size.height),
-                                                   MAX(self.view.bounds.size.width, self.view.bounds.size.height) * kVideoViewHeightRatio);
-        self.movieContainerView.vodPlayer.baseView = self.movieContainerView.playerContainerView;
+        if([self moviePLayerOnScreen]){
+            self.playerContainerView.frame = CGRectMake(0,
+                                                           0,
+                                                           MIN(self.view.bounds.size.width, self.view.bounds.size.height),
+                                                           MAX(self.view.bounds.size.width, self.view.bounds.size.height) * kVideoViewHeightRatio);
+            self.playerContainerViewBackground.frame = CGRectMake(0,
+                                                        0,
+                                                        MIN(self.view.bounds.size.width, self.view.bounds.size.height),
+                                                        MAX(self.view.bounds.size.width, self.view.bounds.size.height) * kVideoViewHeightRatio);
+            self.vodPlayer.baseView = self.playerContainerView;
+        }
     }
 }
+
+#pragma mark - player container
+//create and setup the player container
+- (void)setupPlayerContainer
+{
+    //container view background is play, used for portrait full screen
+    self.playerContainerViewBackground = [[UIView alloc] initWithFrame:CGRectMake(0,
+                                                                                    -(self.view.frame.size.height * kVideoViewHeightRatio),
+                                                                                    self.view.frame.size.width,
+                                                                                    self.view.frame.size.height * kVideoViewHeightRatio)];
+    self.playerContainerView = [[UIView alloc] initWithFrame:CGRectMake(0,
+                                                                        -(self.view.frame.size.height * kVideoViewHeightRatio),
+                                                                        self.view.frame.size.width,
+                                                                        self.view.frame.size.height * kVideoViewHeightRatio)];
+    
+    self.playerContainerViewBackground.backgroundColor = [UIColor blackColor];
+    self.playerContainerView.backgroundColor = [UIColor blackColor];
+    self.playerContainerViewBackground.tag = 1;
+    
+    [self.playerContainerViewBackground addSubview:self.playerContainerView];
+    [self.view addSubview:self.playerContainerViewBackground];
+    
+    //setup vod player
+    self.vodPlayer = [[VMMoviePlayerController alloc] initWithBaseView:self.playerContainerView];
+    self.vodPlayer.controlStyle = VMMovieControlStyleFullscreen;
+    self.vodPlayer.containerDelegate = self;
+    [self.vodPlayer playVideo:self.video];
+}
+
+
+#pragma mark Top bar user action Methods
+- (void)playVideo:(VMVideo *)sourceVideo
+{
+    self.video = sourceVideo;
+    [self.vodPlayer playVideo:sourceVideo];
+}
+- (void)stopVideo
+{
+    [self.vodPlayer stopPlayer];
+}
+
+-(void) onCloseButtonTapped:(id)sender
+{
+    [self.vodPlayer stopPlayer];
+    [self removeVideoPlayer];
+}
+
+- (void) moviePlayerDidStop{}
+- (void)onInfoButtonTapped:(id)sender{}
+- (void)onAddButtonTapped:(id)sender{}
+- (void)onShareButtonTapped:(id)sender{}
+- (void)onBuyButtonTapped:(id)sender{}
+
+#pragma mark VMMoviePlayerContainerDelegate Methods
+- (void) movieplayerReadyToPlayVideo{
+    TVPlayerTopBarView *topBar = [[TVPlayerTopBarView alloc] initWithFrame:CGRectMake(0, 0, self.playerContainerView.bounds.size.width, 40)];
+    topBar.video = self.video;
+    [_vodPlayer showOverlay:topBar];
+}
+
+- (void) movieplayerExpandButtonPressed{
+    [self moviePlayerEnterFullScreen];
+}
+
+- (void) onFullScreenTapped{}
+- (void) moviePlayerStartPlayingAds{}
+- (void) moviePlayerEndPlayingAds{}
 
 @end

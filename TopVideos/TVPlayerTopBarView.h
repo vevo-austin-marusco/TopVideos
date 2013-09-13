@@ -1,8 +1,8 @@
 //
-//  PlayerTopBarView.h
-//  ExampleUseVevoSDK
+//  TVPlayerTopBarView.h
+//  TopVideos
 //
-//  Created by Harry Xu on 7/15/13.
+//  Created by Austin Marusco.
 //  Copyright (c) 2013 Vevo. All rights reserved.
 //
 
