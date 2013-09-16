@@ -78,6 +78,11 @@ typedef enum {
  */
 @property (nonatomic) BOOL   disableContinuousPlay;
 
+/*!
+ @property A Boolean value that determines whether AirPlay available.
+ */
+@property (nonatomic, readonly) BOOL   isAirPlayAvailable;
+
 
 - (id)initWithBaseView:(UIView *)baseView;
 

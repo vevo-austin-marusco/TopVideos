@@ -14,6 +14,11 @@
 #define VM_EXTERN			extern
 #endif
 
+/*
+ * Notification made when AirPlayDetector isAirPlayAvailable changes
+ */
+VM_EXTERN NSString *const VMAirPlayAvailabilityChangedNotification;
+
 typedef enum {
 	VM_LOG_LEVEL_QUIET		=	1,
 	VM_LOG_LEVEL_INFO		=	7,
@@ -49,6 +54,8 @@ typedef enum {
 - (void) moviePlayerDidGetRecommendations:(NSArray*)recommendations;
 - (void) moviePlayerStartPlayRecommendationAt:(int)index;
 - (void) movieplayerReadyToPlayVideo;
+- (void) movieplayerAirPlayAvailabilityChanged:(BOOL)airplayAvailable;
+- (void) movieplayerExpandButtonPressed;
 
 @end
 

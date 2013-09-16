@@ -162,7 +162,7 @@ float const kSelectedGenreColorB = 235/255.0f;
         }
         
         //set the text to the appropriate value w/ offset
-        genreLabel.text = [self converKeyToValueForGenres:[APP_DELEGATE.genres objectAtIndex:i]];
+        genreLabel.text = [[self converKeyToValueForGenres:[APP_DELEGATE.genres objectAtIndex:i]] uppercaseString];
         genreLabel.tag = i + 1;
         
         [self.genresView addSubview:genreLabel];
@@ -673,7 +673,11 @@ float const kSelectedGenreColorB = 235/255.0f;
 }
 
 - (void) onFullScreenTapped{}
-- (void) moviePlayerStartPlayingAds{}
-- (void) moviePlayerEndPlayingAds{}
+- (void) moviePlayerStartPlayingAds{
+
+}
+- (void) moviePlayerEndPlayingAds{
+
+}
 
 @end
