@@ -350,7 +350,6 @@ int const kRefreshAllDataAfter = 7;
 #pragma mark - genre views
 - (void)reloadSelectedTableViewWithCurrentGenreIndex:(int)genreIndex
 {
-    NSLog(@"loading 0 %f",CACurrentMediaTime());
     //get list of videos from server and reload tableview when finished
     [[VMApiFacade sharedInstance] getTopVideosForOrder:@"" genre:[APP_DELEGATE.genres objectAtIndex:genreIndex] offset:0 limit:kTopVideosLoadCount
                                           successBlock:^(id results){
