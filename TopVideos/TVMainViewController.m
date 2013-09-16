@@ -28,11 +28,16 @@ float const kSelectedGenreColorR = 3/255.0f;
 float const kSelectedGenreColorG = 207/255.0f;
 float const kSelectedGenreColorB = 235/255.0f;
 
+//refresh constants
+//refresh after n days
+int const kRefreshAllDataAfter = 7;
+
 @interface TVMainViewController (){}
 
 @property (nonatomic) int page;
 @property (nonatomic) bool playingAds;
 @property (nonatomic, strong) VMVideo *video;
+@property (nonatomic, strong) NSMutableDictionary *recentlyReloadedGenres;
 
 //scroll views
 @property (nonatomic,retain) UIScrollView *genresView;
@@ -59,7 +64,6 @@ float const kSelectedGenreColorB = 235/255.0f;
     //set controller's initial variables
     self.playingAds = NO;
     self.page = 0;
-
     
     //hide status bar
     if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
@@ -162,7 +166,7 @@ float const kSelectedGenreColorB = 235/255.0f;
         }
         
         //set the text to the appropriate value w/ offset
-        genreLabel.text = [[self converKeyToValueForGenres:[APP_DELEGATE.genres objectAtIndex:i]] uppercaseString];
+        genreLabel.text = [[APP_DELEGATE.genreDetails objectForKey:[APP_DELEGATE.genres objectAtIndex:i]] uppercaseString];
         genreLabel.tag = i + 1;
         
         [self.genresView addSubview:genreLabel];
@@ -208,15 +212,18 @@ float const kSelectedGenreColorB = 235/255.0f;
     }
     
     //if there are values in the array, load into tableview
-    if([[APP_DELEGATE.genreData objectAtIndex:self.page] count] > 0){
+    int currentTableIndex = tableView.tag - 1;
+    ;
+    
+    if([[self getDataForGenre:[self getGenreForIndex:currentTableIndex]] count] > 0){
             //load song dictionary
-            NSDictionary *topVideo = [[APP_DELEGATE.genreData  objectAtIndex:self.page] objectAtIndex:indexPath.row];
-            
-            //set cell properties
+            NSDictionary *topVideo = [[self getDataForGenre:[self getGenreForIndex:currentTableIndex]] objectAtIndex:indexPath.row];
+        
+        //set cell properties
             cell.songTitleLabel.text = [[topVideo objectForKey:@"title"] uppercaseString];
             cell.artistNameLabel.text = [[[[topVideo objectForKey:@"artists_main"] objectAtIndex:0] objectForKey:@"name"] uppercaseString];
             [cell.artistImageView setImageWithURL:[NSURL URLWithString:[topVideo objectForKey:@"image_url"]]
-                                  placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+                                 placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
             NSNumber *tempTopVideoCount = [NSNumber numberWithInt:indexPath.row + 1];
             cell.topVideoCountLabel.text = [tempTopVideoCount stringValue];
     }
@@ -341,14 +348,14 @@ float const kSelectedGenreColorB = 235/255.0f;
 }
 
 #pragma mark - genre views
-- (void)reloadSelectedTableViewWithCurrentGenreIndex:(int)genreIndex{
+- (void)reloadSelectedTableViewWithCurrentGenreIndex:(int)genreIndex
+{
+    NSLog(@"loading 0 %f",CACurrentMediaTime());
     //get list of videos from server and reload tableview when finished
-    [[VMApiFacade sharedInstance] getTopVideosForOrder:@"" genre:[APP_DELEGATE.genres objectAtIndex:self.page] offset:0 limit:kTopVideosLoadCount
+    [[VMApiFacade sharedInstance] getTopVideosForOrder:@"" genre:[APP_DELEGATE.genres objectAtIndex:genreIndex] offset:0 limit:kTopVideosLoadCount
                                           successBlock:^(id results){
-                                              
-                                              //set top videos dictionary and reload data
-                                              [APP_DELEGATE.genreData replaceObjectAtIndex:genreIndex withObject:results];
-                                              
+
+                                              [self.recentlyReloadedGenres setValue:[NSNumber numberWithBool:YES] forKey:[self getGenreForIndex:genreIndex]];
                                               
                                               UITableView *currentTableView = (UITableView *)[self.topVideosScrollView viewWithTag:genreIndex + 1];
                                               
@@ -358,10 +365,41 @@ float const kSelectedGenreColorB = 235/255.0f;
                                               //remove the activity indicator from the view
                                               [self removeActivityIndicatorFomView:currentTableView];
                                               
+                                              dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                                                  //set top videos dictionary and reload data
+                                                  [self setDataForGenre:[self getGenreForIndex:genreIndex] Results:results];
+                                              });
+                                              
                                           }
                                             errorBlock:^(NSError *error){
                                                 NSLog(@"%@",error);
                                             }];
+}
+
+//reload the genre at the index and the surrounding indexes
+- (void)reloadSelectedTableViewsWithCurrentGenreIndex:(int)genreIndex
+{
+    //load current index
+    //if the genre hasn't been recently refreshed
+    if(![self.recentlyReloadedGenres objectForKey:[self getGenreForIndex:genreIndex]]){
+        [self reloadSelectedTableViewWithCurrentGenreIndex:genreIndex];
+    }
+    
+    //load previous index
+    if(genreIndex != 0){
+        //if the genre hasn't been recently refreshed
+        if(![self.recentlyReloadedGenres objectForKey:[self getGenreForIndex:genreIndex-1]]){
+            [self reloadSelectedTableViewWithCurrentGenreIndex:genreIndex-1];
+        }
+    }
+    
+    //load next index
+    if(genreIndex != ([APP_DELEGATE.genres count] - 1)){
+        //if the genre hasn't been recently refreshed
+        if(![self.recentlyReloadedGenres objectForKey:[self getGenreForIndex:genreIndex+1]]){
+            [self reloadSelectedTableViewWithCurrentGenreIndex:genreIndex+1];
+        }
+    }
 }
 
 //returns a genre that corresponds with a given index
@@ -370,44 +408,42 @@ float const kSelectedGenreColorB = 235/255.0f;
     return [APP_DELEGATE.genres objectAtIndex:index];
 }
 
+//return the array of data for a given genre
+- (NSMutableArray *) getDataForGenre:(NSString *)genre
+{
+    
+    if([APP_DELEGATE.genreData objectForKey:genre]){
+        return [APP_DELEGATE.genreData objectForKey:genre];
+    }
+    
+    return [NSMutableArray array];
+}
+
+//set the cached data for the genre
+- (void)setDataForGenre:(NSString *)genre Results:(NSDictionary *)results
+{
+    [APP_DELEGATE.genreData setObject:results forKey:genre];
+    
+    //store values
+    NSMutableDictionary *genreCache = [[NSMutableDictionary alloc] initWithObjectsAndKeys:APP_DELEGATE.genres,@"genrePossibleSelections",APP_DELEGATE.genreData,@"genreCache", nil];
+    [[NSUserDefaults standardUserDefaults] setObject:genreCache forKey:@"genreInformation"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 
 #pragma mark - other
 - (void)appOpened{
     //reload current page data
-    [self reloadSelectedTableViewWithCurrentGenreIndex:self.page];
+    [self reloadSelectedTableViewsWithCurrentGenreIndex:self.page];
+    
+    //reset recently reloaded genres
+    self.recentlyReloadedGenres = [[NSMutableDictionary alloc] init];
 }
 
 // used for status bar preferrences
 - (BOOL)prefersStatusBarHidden
 {
     return YES;
-}
-
-- (NSString *)converKeyToValueForGenres:(NSString *)key
-{
-    if([key isEqualToString:@"top_40_all"]){
-        return @"Top 40";
-    }
-    else if([key isEqualToString:@"pop"]){
-        return @"Pop";
-    }
-    else if([key isEqualToString:@"rbsoul"]){
-        return @"R&B Soul";
-    }
-    else if([key isEqualToString:@"latino"]){
-        return @"Latino";
-    }
-    else if([key isEqualToString:@"metal"]){
-        return @"Metal";
-    }
-    else if([key isEqualToString:@"country"]){
-        return @"Country";
-    }
-    else if([key isEqualToString:@"electronicdance"]){
-        return @"Electronic Dance";
-    }
-    
-    return @"";
 }
 
 - (void) moviePlayerStartPlayRecommendationAt:(int)index
@@ -417,7 +453,9 @@ float const kSelectedGenreColorB = 235/255.0f;
         
         if(index <= kTopVideosLoadCount){
         
-            NSString *isrcTempString = [[[APP_DELEGATE.genreData  objectAtIndex:self.page] objectAtIndex:index] valueForKey:@"isrc"];
+           
+            NSDictionary *genreData = [[self getDataForGenre:[self getGenreForIndex:index]] objectAtIndex:index];
+            NSString *isrcTempString = [genreData valueForKey:@"isrc"];
             
             //retrieve video information from server
             [[VMApiFacade sharedInstance] searchWithIsrc:isrcTempString successBlock:^(id results){
@@ -494,7 +532,7 @@ float const kSelectedGenreColorB = 235/255.0f;
                                                                           scrollView.frame.size.height) animated:YES];
                 
                 //reload selected table view
-                [self reloadSelectedTableViewWithCurrentGenreIndex:self.page];
+                [self reloadSelectedTableViewsWithCurrentGenreIndex:self.page];
                 
                 //shift the genre scroll view
                 [self.genresView scrollRectToVisible:CGRectMake((self.genresView.frame.size.width/4 * self.page),
@@ -518,7 +556,7 @@ float const kSelectedGenreColorB = 235/255.0f;
                 
                 
                 //if there are no values, show the activity indicator
-                if([[APP_DELEGATE.genreData objectAtIndex:self.page] count] == 0){
+                if([[self getDataForGenre:[self getGenreForIndex:self.page]] count] == 0){
                     //add spinner activity indicator view
                     [self addActivityIndicatorToView:[self.topVideosScrollView viewWithTag:self.page + 1]];
                 }

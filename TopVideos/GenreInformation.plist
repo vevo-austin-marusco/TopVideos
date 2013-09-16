@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>genreDetails</key>
+	<dict>
+		<key>top_40_all</key>
+		<string>Top 40</string>
+		<key>holiday</key>
+		<string>Holiday</string>
+		<key>world</key>
+		<string>World</string>
+		<key>soundtrack</key>
+		<string>Soundtrack</string>
+		<key>classical</key>
+		<string>Classical</string>
+		<key>comedyhumor</key>
+		<string>Comedy Humor</string>
+		<key>reggae</key>
+		<string>Reggae</string>
+		<key>blues</key>
+		<string>Blues</string>
+		<key>jazz</key>
+		<string>Jazz</string>
+		<key>childrens-music</key>
+		<string>Children&apos;s Music</string>
+		<key>christian-gospel</key>
+		<string>Christian &amp; Gospel</string>
+		<key>regional-mexicano</key>
+		<string>Regional Mexicano</string>
+		<key>metal</key>
+		<string>Metal</string>
+		<key>indie</key>
+		<string>Indie</string>
+		<key>rock</key>
+		<string>Rock</string>
+		<key>rbsoul</key>
+		<string>R&amp;B Soul</string>
+		<key>electronicdance</key>
+		<string>Electronic Dance</string>
+		<key>latino</key>
+		<string>Latino</string>
+		<key>country</key>
+		<string>Country</string>
+		<key>alternative</key>
+		<string>Alternative</string>
+		<key>raphip-hop</key>
+		<string>Rap Hip-Hop</string>
+		<key>pop</key>
+		<string>Pop</string>
+	</dict>
+	<key>genrePossibleSelections</key>
+	<array>
+		<string>top_40_all</string>
+		<string>pop</string>
+		<string>raphip-hop</string>
+		<string>alternative</string>
+		<string>rock</string>
+		<string>rbsoul</string>
+		<string>country</string>
+		<string>electronicdance</string>
+		<string>indie</string>
+		<string>metal</string>
+		<string>regional-mexicano</string>
+		<string>latino</string>
+		<string>christian-gospel</string>
+		<string>childrens-music</string>
+		<string>blues</string>
+		<string>reggae</string>
+		<string>comedyhumor</string>
+		<string>jazz</string>
+		<string>classical</string>
+		<string>soundtrack</string>
+		<string>world</string>
+		<string>holiday</string>
+	</array>
+</dict>
+</plist>

@@ -14,21 +14,61 @@
 
 @synthesize genres = _genres;
 @synthesize genreData = _genreData;
+@synthesize genreDetails = _genreDetails;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     //initiate the genres array
-    //TO-DO cache the genres array
-    self.genres = [NSMutableArray arrayWithObjects: @"top_40_all",@"pop",@"rbsoul",@"latino",@"metal",@"country",@"electronicdance",nil];
+    NSString *path = path = [[NSBundle mainBundle] pathForResource:@"GenreInformation" ofType:@"plist"];
+
+    NSDictionary *genrePlistInformation = [[NSDictionary alloc] initWithContentsOfFile:path];
     
-    self.genreData = [[NSMutableArray alloc] initWithObjects:[[NSArray alloc] init],
-                      [[NSArray alloc] init],
-                      [[NSArray alloc] init],
-                      [[NSArray alloc] init],
-                      [[NSArray alloc] init],
-                      [[NSArray alloc] init],
-                      [[NSArray alloc] init],
-                      [[NSArray alloc] init],nil];
+    //check to see if the genre user defaults have been saved
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"genreInformation"]) {
+        
+        //if there is genre information in user defaults, set the variables to the stored values
+        
+        NSDictionary *genreUserDefaultsInformation = [[NSDictionary alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:@"genreInformation"]];
+        
+        bool userDefaultsDataUpdated = NO;
+        
+        //if the user defaults has Genre Selection, set to variables
+        if([genreUserDefaultsInformation objectForKey:@"genreSelections"]){
+            self.genres = [genreUserDefaultsInformation objectForKey:@"genreSelections"];
+        }
+        else{
+            self.genres = [genrePlistInformation objectForKey:@"genrePossibleSelections"];
+            userDefaultsDataUpdated = YES;
+        }
+        
+        //if the user defaults has Genre Cache, set to variables
+        if([genreUserDefaultsInformation objectForKey:@"genreCache"]){
+            self.genreData = [genreUserDefaultsInformation objectForKey:@"genreCache"];
+        }
+        else{
+            self.genreData = [[NSMutableDictionary alloc] init];
+            userDefaultsDataUpdated = YES;
+        }
+        
+        //if the user defaults data has been updated, store new values 
+        if(userDefaultsDataUpdated){
+            NSMutableDictionary *genreCache = [[NSMutableDictionary alloc] initWithObjectsAndKeys:self.genres,@"genrePossibleSelections",self.genreData,@"genreCache", nil];
+            [[NSUserDefaults standardUserDefaults] setObject:genreCache forKey:@"genreInformation"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+    }
+    else{
+        //if the genre information is not stored in user defaults, create a new dictionary w/ default data and store
+        self.genres = [genrePlistInformation objectForKey:@"genrePossibleSelections"];
+        self.genreData = [[NSMutableDictionary alloc] init];
+        
+        NSMutableDictionary *genreCache = [[NSMutableDictionary alloc] initWithObjectsAndKeys:self.genres,@"genrePossibleSelections",self.genreData,@"genreCache", nil];
+        [[NSUserDefaults standardUserDefaults] setObject:genreCache forKey:@"genreInformation"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
+    //set genre details
+    self.genreDetails = [genrePlistInformation objectForKey:@"genreDetails"];
     
     // Override point for customization after application launch.
     return YES;

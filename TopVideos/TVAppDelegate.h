@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) UIWindow *window;
 @property (nonatomic, strong) NSMutableArray *genres;
-@property (nonatomic, strong) NSMutableArray *genreData;
+@property (nonatomic, strong) NSMutableDictionary *genreData;
+@property (nonatomic, strong) NSDictionary *genreDetails;
 
 @end

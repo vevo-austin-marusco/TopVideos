@@ -41,6 +41,8 @@
 		5987948917D66F1200101BE8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5987946817D66F1200101BE8 /* UIKit.framework */; };
 		5987949117D66F1200101BE8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5987948F17D66F1200101BE8 /* InfoPlist.strings */; };
 		5987949317D66F1200101BE8 /* TopVideosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5987949217D66F1200101BE8 /* TopVideosTests.m */; };
+		59A82CCB17E7929100F1A975 /* GenreInformation.plist in Resources */ = {isa = PBXBuildFile; fileRef = 59A82CCA17E7929100F1A975 /* GenreInformation.plist */; };
+		59A82CCC17E7929100F1A975 /* GenreInformation.plist in Resources */ = {isa = PBXBuildFile; fileRef = 59A82CCA17E7929100F1A975 /* GenreInformation.plist */; };
 		59B1342017D6AA7F006051B9 /* TVTopVideosTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 59B1341F17D6AA7E006051B9 /* TVTopVideosTableViewCell.m */; };
 		59B1342917D7BAD5006051B9 /* ProximaNovaAlt-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 59B1342817D7BAD5006051B9 /* ProximaNovaAlt-Black.otf */; };
 		59B1342B17D7BB6A006051B9 /* ProximaNovaAlt-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 59B1342A17D7BB6A006051B9 /* ProximaNovaAlt-Bold.otf */; };
@@ -125,6 +127,7 @@
 		5987948E17D66F1200101BE8 /* TopVideosTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TopVideosTests-Info.plist"; sourceTree = "<group>"; };
 		5987949017D66F1200101BE8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5987949217D66F1200101BE8 /* TopVideosTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopVideosTests.m; sourceTree = "<group>"; };
+		59A82CCA17E7929100F1A975 /* GenreInformation.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GenreInformation.plist; sourceTree = "<group>"; };
 		59B1341E17D6AA7E006051B9 /* TVTopVideosTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVTopVideosTableViewCell.h; sourceTree = "<group>"; };
 		59B1341F17D6AA7E006051B9 /* TVTopVideosTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVTopVideosTableViewCell.m; sourceTree = "<group>"; };
 		59B1342817D7BAD5006051B9 /* ProximaNovaAlt-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNovaAlt-Black.otf"; sourceTree = "<group>"; };
@@ -266,6 +269,7 @@
 				5987946D17D66F1200101BE8 /* InfoPlist.strings */,
 				5987947017D66F1200101BE8 /* main.m */,
 				5987947217D66F1200101BE8 /* TopVideos-Prefix.pch */,
+				59A82CCA17E7929100F1A975 /* GenreInformation.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -466,6 +470,7 @@
 				5987947817D66F1200101BE8 /* Main_iPhone.storyboard in Resources */,
 				59FAEE7217D925B00079419E /* player_play_icon.png in Resources */,
 				5987946F17D66F1200101BE8 /* InfoPlist.strings in Resources */,
+				59A82CCB17E7929100F1A975 /* GenreInformation.plist in Resources */,
 				59FAEE7317D925B00079419E /* player_play_icon@2x.png in Resources */,
 				59B1342B17D7BB6A006051B9 /* ProximaNovaAlt-Bold.otf in Resources */,
 				594B194E17D69A840055C5DE /* Default-568h@2x.png in Resources */,
@@ -478,6 +483,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5987949117D66F1200101BE8 /* InfoPlist.strings in Resources */,
+				59A82CCC17E7929100F1A975 /* GenreInformation.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
